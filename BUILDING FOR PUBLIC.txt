@@ -18,7 +18,7 @@ e.g.
     appDir: '../pre-public',
     mainConfigFile: '../pre-public/js/common.js',
     dir: '../public',
-	optimizeCss: "standard",
+    optimizeCss: "standard",
     modules: [
         //First set up the common build layer.
         {
