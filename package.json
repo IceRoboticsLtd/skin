@@ -47,5 +47,5 @@
   "scripts": {
       "test": "mocha"
   },
-  "repository": "git://github.com/iceroboticsltd/chat"
+  "repository": "git://github.com/iceroboticsltd/skin"
 }
