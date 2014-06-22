@@ -6,7 +6,7 @@ console.log("Instructing server to prepare for shutdown");
  
 var http = require("http");
 
-config = require('../config/server.js');
+config = require('../configs/server.js');
 var configs = config.configs;
 
 // Port
