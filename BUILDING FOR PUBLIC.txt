@@ -11,7 +11,7 @@ node tools/r.js -o tools/build.js
 </pre>
 
 ** Build config
-The configuration for the build is inside build.js
+The configuration for the build is inside tools/build.js
 
 e.g.
 {
@@ -31,16 +31,16 @@ e.g.
                       'app/lib',
                       'app/controller/Base',
                       'app/model/Base',
-					  'app/modelController/Base',
-					  'app/modelService/Base',
-					  'app/serviceBus/Base',
-					  'app/view/Base',
-					  'app/viewController/Base',
-					  'app/viewService/Base'
+                      'app/modelController/Base',
+                      'app/modelService/Base',
+                      'app/serviceBus/Base',
+                      'app/view/Base',
+                      'app/viewController/Base',
+                      'app/viewService/Base'
             ]
         },
         //Now set up a build layer for each main layer, but exclude
-        //the common one. "exclude" will exclude nested
+        //the common one. "exclude" will exclude
         //the nested, built dependencies from "common". Any
         //"exclude" that includes built modules should be
         //listed before the build layer that wants to exclude it.
@@ -49,20 +49,10 @@ e.g.
         //shimmed dependencies need to maintain their load order.
         //In this example, common.js will hold jquery, so backbone
         //needs to be delayed from loading until common.js finishes.
-        //That loading sequence is controlled in page1.js.
+        //That loading sequence is controlled in page.js.
         {
             //module names are relative to baseUrl/paths config
-            name: 'app/main1',
-            exclude: ['../common']
-        },
-        {
-            //module names are relative to baseUrl
-            name: 'app/main2',
-            exclude: ['../common']
-        },
-        {
-            //module names are relative to baseUrl
-            name: 'app/main3',
+            name: 'app/main',
             exclude: ['../common']
         }
     ]
@@ -70,10 +60,6 @@ e.g.
 
 ** Base files for controller, model, view etc.
 The Base files will be attached to the common file, all controllers, models, views, etc have access to them.
-
-
-
-
 
 See also:
 https://github.com/requirejs/example-multipage-shim
