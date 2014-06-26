@@ -14,6 +14,11 @@ var configs = config.configs,
 	server_prefix = configs.server_prefix || 'SKIN';
 
 /*
+ * SERVICES - The Services
+ */
+var services = require('../routes/services'); // it seems that we have to start each required file as its own var
+
+/*
  * SERVER - The Server used for shutdown etc
  * See: https://www.exratione.com/2011/07/running-a-nodejs-server-as-a-service-using-forever/
  */
