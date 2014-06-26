@@ -2,7 +2,9 @@ var express = require('express'),
 	device = require('../lib/device.js'),
 	redirect = require('express-redirect'),
 	bodyParser = require('body-parser'),
-	methodOverride = require('method-override');
+	cookieParser = require('cookie-parser'),
+	methodOverride = require('method-override'),
+	errorHandler = require('errorhandler');
 
 /*
  * CONFIGS - The Configurations
@@ -128,30 +130,34 @@ api.post('/login', function(req, res){
  * check with
  * echo %NODE_ENV% 
  */
-var env = process.env.NODE_ENV;
-if('development' == env){
+if('development' == app.settings.env){
+
+	console.log(server_prefix + " - Using development configurations");
+
     app.set('view engine', 'ejs');
     app.set('view options', { layout: true });
     app.set('views', __dirname + '/../public');
     
-	// https://github.com/senchalabs/connect/wiki/Connect-3.0
+	/*
+	 * bodyParser() is the composition of three middlewares:
+	 * - json: parses application/json request bodies
+	 * - urlencoded: parses x-ww.form-urlencoded request bodies
+	 * - multipart: parses multipart/form-data request bodies
+	 */
     app.use(bodyParser()); // pull information from html in POST
-	app.use(express.urlencoded()); // NEW IN CONNECT 3.0
-	app.use(express.json()); // NEW IN CONNECT 3.0	
 
     app.use(methodOverride());
-    app.use(express.cookieParser());
+    app.use(cookieParser());
     app.use(device.capture());
     
     app.enableDeviceHelpers();
     app.enableViewRouting();
 
-    app.use(app.router);
     app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
+    app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
 };
 
 /*
@@ -168,30 +174,34 @@ if('development' == env){
  * check with
  * echo %NODE_ENV% 
  */
-var env = process.env.NODE_ENV;
-if('production' == env){
+if('production' == app.settings.env){
+
+	console.log(server_prefix + " - Using production configurations");
+
     app.set('view engine', 'ejs');
     app.set('view options', { layout: true });
     app.set('views', __dirname + '/../public');
     
-	// https://github.com/senchalabs/connect/wiki/Connect-3.0
+	/*
+	 * bodyParser() is the composition of three middlewares:
+	 * - json: parses application/json request bodies
+	 * - urlencoded: parses x-ww.form-urlencoded request bodies
+	 * - multipart: parses multipart/form-data request bodies
+	 */
     app.use(bodyParser()); // pull information from html in POST
-	app.use(express.urlencoded()); // NEW IN CONNECT 3.0
-	app.use(express.json()); // NEW IN CONNECT 3.0	
 
     app.use(methodOverride());
-    app.use(express.cookieParser());
+    app.use(cookieParser());
     app.use(device.capture());
     
     app.enableDeviceHelpers();
     app.enableViewRouting();
 
-    app.use(app.router);
     app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     
-    app.use(express.errorHandler()); // specific for production
+    app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
 };
 
 app.all('*', function(req, res, next){
