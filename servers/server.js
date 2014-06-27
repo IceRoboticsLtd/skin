@@ -107,9 +107,28 @@ if(typeof configs.api_port === 'undefined'){
 else {
 	var api_port = configs.api_port;
 }
-
-// api.use(api.router); // DEPRECATED
-
+// Api List
+if(typeof configs.api_list === 'undefined'){
+	var api_list = {};
+}
+else {
+	var api_list = configs.api_list;
+}
+// Action List
+if(typeof configs.action_list === 'undefined'){
+	var action_list = {};
+}
+else {
+	var action_list = configs.action_list;
+}
+// Format List
+if(typeof configs.format_list === 'undefined'){
+	var format_list = {};
+}
+else {
+	var format_list = configs.format_list;
+}
+// API All
 api.all('*', function(req, res, next){
   if (!req.get('Origin')) return next();
   // use "*" here to accept any origin
@@ -122,7 +141,7 @@ api.all('*', function(req, res, next){
   if ('OPTIONS' == req.method) return res.send(200);
   next();
 });
-
+// API Post
 api.post('/login', function(req, res){
   console.log(req.body);
   res.send(201);
