@@ -89,12 +89,12 @@ if(typeof configs.app_port === 'undefined'){
 else {
 	var app_port = configs.app_port;
 }
-// Store List
-if(typeof configs.store_list === 'undefined'){
-	var store_list = {};
+// App List
+if(typeof configs.app_list === 'undefined'){
+	var app_list = {};
 }
 else {
-	var store_list = configs.store_list;
+	var app_list = configs.app_list;
 }
 /*
  * API - The Application Programming Interface
