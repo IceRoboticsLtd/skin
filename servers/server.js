@@ -89,7 +89,13 @@ if(typeof configs.app_port === 'undefined'){
 else {
 	var app_port = configs.app_port;
 }
-
+// Store List
+if(typeof configs.store_list === 'undefined'){
+	var store_list = {};
+}
+else {
+	var store_list = configs.store_list;
+}
 /*
  * API - The Application Programming Interface
  */
