@@ -26,7 +26,8 @@ module.exports.configs = {
 	allowedHosts : {
 		'http://yourhostname.com': true,
 		'localhost': true,
-		'localhost:3000': true
+		'localhost:3000': true,
+		'localhost:3001': true
 	},
 	title : 'Your Company', // put the page title here
 	web_root : '/skin/public' // put your web root here, starting with a slash forward (/)
