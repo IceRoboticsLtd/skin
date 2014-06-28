@@ -20,10 +20,13 @@
             //a separate file so after a build there are only 2 HTTP
             //requests instead of three.
             require(['./js/common'], function (common) {
+                console.log('page: common required');
                 //js/common sets the baseUrl to be js/ so
                 //can just ask for 'app/main' here instead
                 //of 'js/app/main'
-                require(['app/main']);
+                require(['app/main'], function (main) {
+                     console.log('page: main required');
+                });
             });
         </script>
     </head>

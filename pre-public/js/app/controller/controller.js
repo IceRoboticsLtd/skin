@@ -1,4 +1,8 @@
+/*
+ * Controller
+ */
 define(['./Base'], function (Base) {
-    var controller = new Base('Controller');
-    return controller;
+    var _Controller = new Base('Controller');
+
+    return _Controller;
 });
