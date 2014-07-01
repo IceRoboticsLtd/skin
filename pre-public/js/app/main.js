@@ -23,7 +23,11 @@ define(function (require) {
         viewEvent = require('./viewEvent/viewEvent'),	
         backbone = require('backbone'),
         underscore = require('underscore'),
-		postal = require('postal/src/postal');
+		//OLD postal = require('postal/src/postal')
+        lodash = require('lodash/dist/lodash'),
+        postal = require('postal'),
+        postaldiags = require('postal.diagnostics/lib/postal.diagnostics'),
+        conduit = require('conduitjs/lib/conduit.min');
 
     //A fabricated API to show interaction of
     //common and specific pieces.

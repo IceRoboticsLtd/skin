@@ -1,5 +1,5 @@
 /* built-in modules */
-var fs = require('fs'),
+var fs = require('browserify-fs'), // WAS require('fs'), which works only on server-side
     sys = require('sys'),
     path = require('path'),
     EventEmitter = require('events').EventEmitter,
