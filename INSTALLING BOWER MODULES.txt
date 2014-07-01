@@ -1,3 +1,12 @@
+To install bower, run the following command:
+
+export PATH="usr/local/share/npm/bin:$PATH"
+npm install bower -g
+
+To check if bower is installed, type:
+
+bower --help
+
 To install bower modules, run the following command whilst in the directory where bower.json resides:
 
 bower install
