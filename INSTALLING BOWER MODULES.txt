@@ -1,0 +1,9 @@
+To install bower modules, run the following command whilst in the directory where bower.json resides:
+
+bower install
+
+To update bower modules, run the following command whilst in the directory where bower.json resides:
+
+bower update
+
+NOTE: bower is a node module. It is its own package manager for browser-based modules, unlike npm which is a package manager for server-based modules.
