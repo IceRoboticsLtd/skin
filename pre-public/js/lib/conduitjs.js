@@ -1,126 +1,136 @@
-/* built-in modules */
-var fs = require('browserify-fs'), // WAS require('fs'), which works only on server-side
-    sys = require('sys'),
-    path = require('path'),
-    EventEmitter = require('events').EventEmitter,
-    util = require('util');
-    
-/* external libraries */
-var $ = require('underscore');
-
 /**
- * Singleton object for options and top-level event handling
+ * conduitjs - Give any method a pre/post invocation pipeline....
+ * Author: Jim Cowart (http://freshbrewedcode.com/jimcowart)
+ * Version: v0.3.2
+ * Url: http://github.com/ifandelse/ConduitJS
+ * License: MIT
  */
-var _config = {
-    error: null,
-    invincible: false,
-    debug: false,
-    cwd: '.'
-};
-
-/* Used for global events */
-var _hub = new EventEmitter();
-
-// FIXME
-exports.on = function(type, listener) {
-    return _hub.on(type, listener);
-};
-
-// FIXME
-exports.emit = function() {
-    return _hub.emit.apply(_hub, arguments);
-};
-
-/*
- * Configure global options in _config
- */
-exports.configure = function(opt, reconfigure) {
-    // Don't redo unless reconfigure is true
-    if(reconfigure !== true) {
-        if(process.env.CONDUIT_CONFIGURED === 'true') {
-            return;
+(function (root, factory) {
+    if (typeof module === "object" && module.exports) {
+        // Node, or CommonJS-Like environments
+        module.exports = factory();
+    } else if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory(root));
+    } else {
+        // Browser globals
+        root.Conduit = factory(root);
+    }
+}(this, function (global, undefined) {
+    function Conduit(options) {
+        if (typeof options.target !== "function") {
+            throw new Error("You can only make functions into Conduits.");
         }
-        process.env.CONDUIT_CONFIGURED = 'true';
-    }
-
-    if(typeof opt.error === 'function') {
-        process.on('uncaughtException', error);
-        _config.error = opt.error;
-    }
-    if(opt.invincible === true) {
-        process.on('uncaughtException', exports.handleError);
-        _config.invincible = true;
-    }
-
-    // Replace options given in opt
-    _config.debug = $(opt.debug).isUndefined()? _config.debug : opt.debug;
-    _config.cwd = $(opt.cwd).isUndefined()? _config.cwd : opt.cwd;
-};
-exports._config = _config;
-
-/**
- * Default top-level error handler
- */
-exports.handleError = function(err) {
-    console.error(err.stack);
-};
-
-
-/**
- * Base class for all unique, event-driven components (Script, XMPP, etc.)
- */
-var Component = function(opt) {
-
-    // Throw error when new keyword is not used
-    if (!(this instanceof Component))
-        throw new TypeError('Must be created with the "new" keyword');
-    
-    EventEmitter.call(this);
-    opt = opt || {};
-
-    this.checkOptions(opt);
-
-    // Generate id if needed
-    this.id = opt.id || $.uniqueId();
-    delete opt.id;
-};
-
-sys.inherits(Component, EventEmitter);
-Component.prototype.options = ['id'];
-exports.Component = Component;
-
-Component.prototype.checkOptions = function(opt) {
-    for(var option in opt) {
-        if(!$(this.options).include(option)) {
-            throw new Error('Invalid option: ' + option);
+        var _steps = {
+            pre: options.pre || [],
+            post: options.post || [],
+            all: []
+        };
+        var _defaultContext = options.context;
+        var _target = options.target;
+        var _targetStep = {
+            isTarget: true,
+            fn: options.sync ?
+            function () {
+                var args = Array.prototype.slice.call(arguments, 0);
+                var result = _target.apply(_defaultContext, args);
+                return result;
+            } : function (next) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                args.splice(1, 1, _target.apply(_defaultContext, args));
+                next.apply(this, args);
+            }
+        };
+        var _genPipeline = function () {
+            _steps.all = _steps.pre.concat([_targetStep].concat(_steps.post));
+        };
+        _genPipeline();
+        var conduit = function () {
+            var idx = 0;
+            var retval;
+            var phase;
+            var next = function next() {
+                var args = Array.prototype.slice.call(arguments, 0);
+                var thisIdx = idx;
+                var step;
+                var nextArgs;
+                idx += 1;
+                if (thisIdx < _steps.all.length) {
+                    step = _steps.all[thisIdx];
+                    phase = (phase === "target") ? "after" : (step.isTarget) ? "target" : "before";
+                    if (options.sync) {
+                        if (phase === "before") {
+                            nextArgs = step.fn.apply(step.context || _defaultContext, args);
+                            next.apply(this, nextArgs || args);
+                        } else {
+                            retval = step.fn.apply(step.context || _defaultContext, args) || retval;
+                            next.apply(this, [retval].concat(args));
+                        }
+                    } else {
+                        step.fn.apply(step.context || _defaultContext, [next].concat(args));
+                    }
+                }
+            };
+            next.apply(this, arguments);
+            return retval;
+        };
+        conduit.steps = function () {
+            return _steps.all;
+        };
+        conduit.context = function (ctx) {
+            if (arguments.length === 0) {
+                return _defaultContext;
+            } else {
+                _defaultContext = ctx;
+            }
+        };
+        conduit.before = function (step, options) {
+            step = typeof step === "function" ? {
+                fn: step
+            } : step;
+            options = options || {};
+            if (options.prepend) {
+                _steps.pre.unshift(step);
+            } else {
+                _steps.pre.push(step);
+            }
+            _genPipeline();
+        };
+        conduit.after = function (step, options) {
+            step = typeof step === "function" ? {
+                fn: step
+            } : step;
+            options = options || {};
+            if (options.prepend) {
+                _steps.post.unshift(step);
+            } else {
+                _steps.post.push(step);
+            }
+            _genPipeline();
+        };
+        conduit.clear = function () {
+            _steps = {
+                pre: [],
+                post: [],
+                all: []
+            };
+            _genPipeline();
+        };
+        conduit.target = function (fn) {
+            if (fn) {
+                _target = fn;
+            }
+            return _target;
+        };
+        return conduit;
+    };
+    return {
+        Sync: function (options) {
+            options.sync = true;
+            return Conduit.call(this, options)
+        },
+        Async: function (options) {
+            return Conduit.call(this, options);
         }
     }
-};
-
-Component.extendOptions = function(base, cls, opt) {
-    cls.prototype.options = base.prototype.options.slice();
-    [].push.apply(cls.prototype.options, opt);
-};
-
-exports.objectSlice = function(object, keys) {
-    var sliced = {};
-    $(keys).each(function(key) {
-        sliced[key] = object[key];
-    });
-    return sliced;
-}
-
-var scripts = require('./scripts');
-exports.scripts = scripts;
-exports.Script = scripts.Script;
-
-exports.tobase64 = scripts.encoder('base64');
-exports.frombase64 = scripts.decoder('base64');
-
-var im = require('./im');
-exports.im = im;
-exports.XMPP = im.XMPP;
-
-var web = require('./web');
-exports.web = web;
-exports.WebHook = web.WebHook;
+}));
