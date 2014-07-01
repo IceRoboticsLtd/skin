@@ -24,10 +24,10 @@ define(function (require) {
         backbone = require('backbone'),
         underscore = require('underscore'),
 		//OLD postal = require('postal/src/postal')
-        lodash = require('lodash/dist/lodash'),
-        postal = require('postal'),
-        postaldiags = require('postal.diagnostics/lib/postal.diagnostics'),
-        conduit = require('conduitjs/lib/conduit.min');
+        lodash = require('./../../../bower_components/lodash/dist/lodash'),
+        postal = require('postal');
+        postaldiags = require('./../../../bower_components/postal.diagnostics/lib/postal.diagnostics.min');
+        conduit = require('./../../../bower_components/conduitjs/lib/conduit.min');
 
     //A fabricated API to show interaction of
     //common and specific pieces.
