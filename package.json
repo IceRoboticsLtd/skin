@@ -28,7 +28,8 @@
     "mocha": "~1.11.0",
 	  "brackets": ">=0.3.0",
 	  "supervisor": ">=0.5.6",
-	  "grunt-cli": ">=0.1.11"
+	  "grunt-cli": ">=0.1.11",
+    "ejs": "*"    
   },
   "devDependencies": {
 	  "grunt-contrib-uglify": "0.1.1",
@@ -41,9 +42,8 @@
 	  "grunt": "~0.4.1",
 	  "grunt-istanbul": ">=0.2.3",
 	  "grunt-plato": "~0.1.5",
-      "ejs": "*",
-      "mocha": "*",
-      "supertest": "*",
+    "mocha": "*",
+    "supertest": "*",
 	  "dateformat": "~1.0.3-1.2.3",
 	  "nodeunit": "*",
 	  "nue": ">=0.7.0-dev",
