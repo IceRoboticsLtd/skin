@@ -17,12 +17,10 @@
                       'app/app/Base',
                       'app/appController/Base',
                       'app/appService/Base',
-                      'app/appEvent/Base',
                       'app/serviceBus/Base',
                       'app/view/Base',
                       'app/viewController/Base',
-                      'app/viewService/Base',
-                      'app/viewEvent/Base'
+                      'app/viewService/Base'
             ]
         },
         //Now set up a build layer for each main layer, but exclude
