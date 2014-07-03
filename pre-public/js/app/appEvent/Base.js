@@ -1,3 +1,6 @@
+/*
+ * AppEventBase
+ */
 define(function () {
     function appEventBase(id) {
         this.id = id;

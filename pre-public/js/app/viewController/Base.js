@@ -1,3 +1,6 @@
+/*
+ * ViewControllerBase
+ */
 define(function () {
     function viewControllerBase(id) {
         this.id = id;
