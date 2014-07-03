@@ -6,6 +6,7 @@ var AppEvent123 = 1 << 0;
 var AppEvent456 = 1 << 1;
 
 define(['./Base'], function (Base) {
+    console.log('appEvent called'); 
     var _AppEvent = new Base(flag);
 
     // following this example, slightly
