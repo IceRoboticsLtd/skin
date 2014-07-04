@@ -18,13 +18,20 @@
     "test",
     "tests"
   ],
+  "main": [
+      "lib/postal.min.js",
+      "lib/postal.js"
+  ],
   "dependencies": {
-    "bootstrap": "~3.0.3",
     "conduitjs": "~0.3.2",
-    "expect": "0.1.2",
-    "lodash": "~2.4.1",
-    "mocha": "~1.17.0",
-    "postal.diagnostics": "~0.7.3",
-    "requirejs": "~2.1.10"
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+      "jquery": "~1.10.2",
+      "bootstrap": "~3.0.3",
+      "expect": "0.1.2",
+      "mocha": "~1.17.0",
+      "requirejs": "~2.1.10",
+      "postal.diagnostics": "~0.7.3"
   }
 }
