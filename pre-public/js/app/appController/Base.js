@@ -33,7 +33,8 @@ define(function () {
 	        var appService = this.appService.find(id);
 	        // Get a new app
 	        var app = new this.app(appService);
-	        // do something with the app
+	        // run the app's render function
+	        app.render();
 	    },
 	    subscribeAppService: function(id) {
 			console.log('SKIN: appControllerBase subscribeAppService(id) called');  	    	
@@ -42,7 +43,12 @@ define(function () {
 	    	// run the appService's subscribe function, using config
 	    	var config = { channel: 'calculator', appTopics: ['calculate']}; // to do: get these from this.config
 	    	appService.subscribe(config);
-	    }
+	    },	    
+        renderView: function (bodyDom) {
+			console.log('SKIN: appControllerBase renderView(bodyDom) called');    	
+            bodyDom.prepend('<h2>AppController ' + this.id + ' says "' +
+                      this.app.getTitle() + '"</h2>');
+        }
     };
     return appControllerBase;
 });

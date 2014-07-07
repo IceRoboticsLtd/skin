@@ -2,6 +2,7 @@
  * AppController
  */
 define(['./Base'], function (Base) {
+    console.log('SKIN: appController called');	
     var _AppController = new Base('');
 
     // following this example, slightly
