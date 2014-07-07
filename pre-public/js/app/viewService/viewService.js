@@ -3,14 +3,14 @@
  */
 define(['./Base'], function (Base) {
 	console.log('SKIN: viewService called');	
-    var _ViewService = new Base(serviceBus);
+    var _ViewService = new Base('');
 	
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
 
     // The viewService instance has a property called "myProperty"
     // created from the serviceBus's "yourProperty".
-    _ViewService.myProperty = serviceBus.yourProperty;
+    _ViewService.myProperty = this.serviceBus.yourProperty;
 
 	// The world's simplest subscription
 //    var channel = postal.channel("Name.Changed");
