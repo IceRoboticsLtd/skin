@@ -10,6 +10,10 @@ define(function () {
 		setServiceBus: function (serviceBus) {
 			console.log('SKIN: viewControllerBase setServiceBus(serviceBus) called');		
 			this.serviceBus = serviceBus;
+	        // Get the viewService.
+	        var viewService = this.viewService.find(id);
+	        // Set the serviceBus.
+	        viewService.setServiceBus(serviceBus);			
 		},
 		setView: function (view) {
 			console.log('SKIN: viewControllerBase setView(view) called');		
