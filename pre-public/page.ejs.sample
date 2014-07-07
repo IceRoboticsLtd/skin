@@ -13,24 +13,183 @@
         <!--[if IE]>
             <link rel="shortcut icon" href="favicon.ico" />
         <![endif]-->
-        <script src="js/lib/require.js"></script>
+        <!-- CSS -->
+        <style type="text/css">
+             /**
+             * Example of an initial loading indicator.
+             * It is recommended to keep this as minimal as possible to provide instant feedback
+             * while other resources are still being loaded for the first time
+             */
+            html, body {
+                height: 100%;
+                background-image: url('img/bg/noise.png') !important;
+                background-color: rgb(217, 219, 222);
+            }
+     
+            #appLoadingIndicator {
+                position: absolute;
+                top: 50%;
+                margin-top: -15px;
+                text-align: center;
+                width: 100%;
+                height: 30px;
+            }
+            
+            #first {
+                -webkit-animation-name: first;
+                -webkit-animation-duration: 0.5s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-direction: linear;            
+            }
+
+            #second {
+                -webkit-animation-name: second;
+                -webkit-animation-duration: 0.5s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-direction: linear;            
+            }
+
+            #third {
+                -webkit-animation-name: third;
+                -webkit-animation-duration: 0.5s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-direction: linear;            
+            }
+            
+            #appLoadingIndicator div {
+                background-color: #FFFFFF;
+                display: inline-block;
+                height: 30px;
+                -webkit-border-radius: 15px;
+                margin: 0 5px;
+                width: 30px;
+                opacity: 0.8;
+            }
+
+            #appLoadingIndicator p {
+                color: #FFFFFF;
+                text-align: center;
+                width: 100%;
+                margin-bottom: 20px;
+            }    
+            
+            @-webkit-keyframes first{
+                0% {
+                    opacity: 0.8
+                }
+                33% {
+                    opacity: 0.4
+                }
+                50% {
+                    opacity: 0
+                }
+                66% {
+                    opacity: 0.4
+                }
+                100% {
+                    opacity: 0.8
+                }
+            }
+            
+            @-webkit-keyframes second{
+                0% {
+                    opacity: 0.8
+                }
+                33% {
+                    opacity: 0.8
+                }
+                50% {
+                    opacity: 0.4
+                }
+                66% {
+                    opacity: 0.0
+                }
+                100% {
+                    opacity: 0.4
+                }
+            }
+
+            @-webkit-keyframes third{
+                0% {
+                    opacity: 0.4
+                }
+                33% {
+                    opacity: 0.8
+                }
+                50% {
+                    opacity: 0.8
+                }
+                66% {
+                    opacity: 0.4
+                }
+                100% {
+                    opacity: 0.0
+                }
+            }
+        </style>        
+        <script >
+        // See http://www.ejeliot.com/blog/109
+            function loadScript(src, async, elem, callback){
+                console.log('loadScript called');
+                // Loads a script.
+                elem = elem || document.createElement('script');
+                elem.async = elem.defer = async;
+                elem.src = src;
+                console.log('elem = ' + elem);                
+                if(callback) {
+                    if(elem.readyState) {
+                        console.log('elem.readyState is true');
+                        // IE 
+                        elem.onreadystatechange = function() {
+                            if(elem.readyState == "loaded" || elem.readyState == "complete") {
+                                elem.onreadystatechange = null;
+                                callback();
+                            }
+                        };
+                    } else {
+                        console.log('elem.readyState is false');
+                        // Good browsers
+                        elem.onload = function() {
+                            console.log('elem.onload set');
+                            callback();
+                        }
+                    }
+                }
+                insertScript(elem);
+            }
+            function insertScript(e) {
+                console.log('insertScript(e) called');
+                console.log('e = ' + e);
+                document.getElementsByTagName('head')[0].appendChild(e);
+            }
+        </script>
         <script>
-            //Load common code that includes config, then load the app
-            //logic for this page. Do the require calls here instead of
-            //a separate file so after a build there are only 2 HTTP
-            //requests instead of three.
-            require(['./js/common'], function (common) {
-                console.log('page: common required');
-                //js/common sets the baseUrl to be js/ so
-                //can just ask for 'app/main' here instead
-                //of 'js/app/main'
-                require(['app/main'], function (main) {
-                     console.log('page: main required');
+            var doNext = function() {
+                console.log('doNext called');
+                //Load common code that includes config, then load the app
+                //logic for this page. Do the require calls here instead of
+                //a separate file so after a build there are only 2 HTTP
+                //requests instead of three.
+                require(['./js/common'], function (common) {
+                    console.log('page: common required');
+                    console.log(common);
+                    //js/common sets the baseUrl to be js/ so
+                    //can just ask for 'app/main' here instead
+                    //of 'js/app/main'
+                    require(['app/main'], function (main) {
+                         console.log('page: main required');
+                         console.log(main);
+                    });
                 });
-            });
+            };
         </script>
     </head>
-    <body>
-        Hello World!
+    <body onload="loadScript('js/lib/require.js', true, null, doNext)">
+        <div id="appLoadingIndicator">
+            <p>LOADING</p>
+            <div id="first"></div>
+            <div id="second"></div>
+            <div id="third"></div>
+        </div>
     </body>
 </html>
