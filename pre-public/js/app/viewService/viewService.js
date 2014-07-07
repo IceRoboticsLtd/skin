@@ -2,6 +2,7 @@
  * ViewService
  */
 define(['./Base'], function (Base) {
+	console.log('SKIN: viewService called');	
     var _ViewService = new Base(serviceBus);
 	
     // following this example, slightly
@@ -9,8 +10,7 @@ define(['./Base'], function (Base) {
 
     // The viewService instance has a property called "myProperty"
     // created from the serviceBus's "yourProperty".
-    this.myProperty = serviceBus.yourProperty;
-
+    _ViewService.myProperty = serviceBus.yourProperty;
 
 	// The world's simplest subscription
 //    var channel = postal.channel("Name.Changed");
@@ -21,6 +21,7 @@ define(['./Base'], function (Base) {
 	
 	// A viewService constructor might have a function that creates new viewService instances
 	_ViewService.find = function ( id ) {
+		console.log('SKIN: viewService find(id) called');	
 		// Data used to create a new viewService may come from anywhere
 		// but in this case data comes from this inline object.
 		var ourData = {
@@ -29,6 +30,9 @@ define(['./Base'], function (Base) {
 			},
 			'456': {
 				yourProperty: 'You pressed a key.'
+			},
+			'subscribe': {
+				yourProperty: 'You suscribe.'
 			}
 		};
 		// Get a new viewService instance containing our data.
@@ -36,7 +40,6 @@ define(['./Base'], function (Base) {
 		// Return the viewService.
 		return viewService;
 	};
-
 	// return the viewService instance
-    return this;
+    return _ViewService;
 });
