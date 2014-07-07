@@ -2,7 +2,7 @@
  * Config
  */
 define(['./Base'], function (Base) {
-    console.log('config called');
+    console.log('SKIN: config called');
     var config = {
 		app_list: {
 			'calculator': true
