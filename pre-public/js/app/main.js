@@ -36,6 +36,24 @@ define(function (require) {
     console.log('jquery:');
     console.log(jquery); 
     jquery.VERSION = jquery.fn.jquery;
+    // Bootstrap check
+    console.log('bootstrap:');
+    console.log(bootstrap);
+    // Expect check
+    console.log('expect:');
+    console.log(expect);
+    // Mocha check
+    console.log('mocha:');
+    console.log(mocha);
+    // ConduitJS check
+//    console.log('conduitjs:');
+//    console.log(conduitjs);
+    // Postal check
+//    console.log('postal');
+//    console.log(postal);
+    // PostalDiags check
+//    console.log('postaldiags:');
+//    console.log(postaldiags);
 
     // Set appController
     console.log('appController:');
@@ -89,6 +107,13 @@ define(function (require) {
         $('body')
             .append('<div>backbone version: ' + backbone.VERSION + '</div>')
             .append('<div>underscore version: ' + underscore.VERSION + '</div>')
+            .append('<div>lodash version: ' + lodash.VERSION + '</div>')
+            .append('<div>jquery version: ' + jquery.VERSION + '</div>')
+            .append('<div>expect version: ' + expect.VERSION + '</div>')
+            .append('<div>mocha version: ' + mocha.VERSION + '</div>') 
+        //    .append('<div>conduitjs version: ' + conduitjs.VERSION + '</div>')
+        //    .append('<div>postal version: ' + postal.VERSION + '</div>')              
+        //    .append('<div>postaldiags version: ' + postaldiags.VERSION + '</div>')                        
 		//	.append('<div>Example 1 - The World\'s Simplest Subscription<div class="results" id="example1"></div></div>');
     });
 });
