@@ -9,8 +9,8 @@ define(function (require) {
         controller = require('./controller/controller'),
         app = require('./app/app'),
 		appController = require('./appController/appController'),
-		appService = require('./appService/appService'),
         appEvent = require('./appEvent/appEvent'),
+        appService = require('./appService/appService'),        
 		serviceBus = require('./serviceBus/serviceBus'),
 		view = require('./view/view'),
 		viewController = require('./viewController/viewController'),
@@ -18,12 +18,14 @@ define(function (require) {
         viewEvent = require('./viewEvent/viewEvent'),	
         backbone = require('backbone'),
         underscore = require('underscore'),
-        jquery = require('jquery');
-		//OLD postal = require('postal/src/postal')
-        // lodash = require('./../../../bower_components/lodash/dist/lodash'),
-//        postal = require('postal');
-        //postaldiags = require('./../../../bower_components/postal.diagnostics/lib/postal.diagnostics.min');
-        //conduit = require('./../../../bower_components/conduitjs/lib/conduit.min');
+        lodash = require('lodash'),
+        jquery = require('jquery'),
+        bootstrap = require('bootstrap'); // bootstrap extends jquery
+        expect = require('expect'),
+        mocha = require('mocha');
+        //conduitjs = require('conduit'), // depends on bootstrap, expect, and mocha
+        //postal = require('postal'),
+        //postaldiags = require('postaldiags');
 
     // Set config
     console.log('config:');
