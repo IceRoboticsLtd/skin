@@ -1,0 +1,13 @@
+/*
+ * Config
+ */
+define(['./Base'], function (Base) {
+    console.log('config called');
+    var config = {
+		app_list: {
+			'calculator': true
+		}
+	};
+    var _Config = new Base(config);
+    return _Config;
+});

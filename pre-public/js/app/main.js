@@ -1,16 +1,11 @@
 /*
  * Main
  */
-
-// NOTE: The below fails because requirejs needs to be sure to load and execute 
-//       all dependencies before calling the factory function below
-
 define(function (require) {
-
-    console.log('main');
-
+    console.log('main called');
     var $ = require('jquery'),
         lib = require('./lib'),
+        config = require('./config/config'),        
         controller = require('./controller/controller'),
         app = require('./app/app'),
 		appController = require('./appController/appController'),
@@ -23,42 +18,77 @@ define(function (require) {
         viewEvent = require('./viewEvent/viewEvent'),	
         backbone = require('backbone'),
         underscore = require('underscore'),
+        jquery = require('jquery');
 		//OLD postal = require('postal/src/postal')
         // lodash = require('./../../../bower_components/lodash/dist/lodash'),
-        postal = require('postal');
+//        postal = require('postal');
         //postaldiags = require('./../../../bower_components/postal.diagnostics/lib/postal.diagnostics.min');
         //conduit = require('./../../../bower_components/conduitjs/lib/conduit.min');
 
-    //A fabricated API to show interaction of
-    //common and specific pieces.
+    // Set config
+    console.log('config:');
+    console.log(config);
+    controller.setConfig(config);
+    // Backbone check
+    console.log('backbone:');
+    console.log(backbone);
+    // JQuery check
+    console.log('jquery:');
+    console.log(jquery); 
+    jquery.VERSION = jquery.fn.jquery;
+
+    // Set appController
+    console.log('appController:');
+    console.log(appController);
+    controller.setAppController(appController); 
+    // Set app
+    console.log('app:');
+    console.log(app);
+    controller.setApp(app);
+    // Set appEvent
+    console.log('appEvent:');
+    console.log(appEvent);
+    controller.setAppEvent(appEvent);
+    // Set appService
+    console.log('appService:');
+    console.log(appService); 
+    controller.setAppService(appService);
+
+    // assign postal to the serviceBus's serviceBus property
+//    serviceBus.serviceBus = postal; 
+    // The same serviceBus is used by both the ViewController and the AppController    
+
+    // Set serviceBus
+    console.log('serviceBus:');
+    console.log(serviceBus);
+    controller.setServiceBus(serviceBus);
+    // Set viewController
+    console.log('viewController:');
+    console.log(viewController);
     controller.setViewController(viewController);
-    controller.setView(view);   
+    // Set view
+    console.log('view:');
+    console.log(view);    
+    controller.setView(view);
+    // Set viewEvent
+    console.log('viewEvent:');
+    console.log(viewEvent);
     controller.setViewEvent(viewEvent);
+    // Set viewService
+    console.log('viewService:');
+    console.log(viewService);    
     controller.setViewService(viewService);
+
+     //A fabricated API to show interaction of
+    //common and specific pieces. 
+
+    // DOM ready  
     $(function () {
         controller.renderView(lib.getBody());
         //Display backbone and underscore versions
         $('body')
             .append('<div>backbone version: ' + backbone.VERSION + '</div>')
             .append('<div>underscore version: ' + underscore.VERSION + '</div>')
-			.append('<div>Example 1 - The World\'s Simplest Subscription<div class="results" id="example1"></div></div>');
+		//	.append('<div>Example 1 - The World\'s Simplest Subscription<div class="results" id="example1"></div></div>');
     });
-    //A fabricated API to show interaction of
-    //common and specific pieces.
-    controller.setAppController(appController); 
-    controller.setApp(app);      
-    controller.setAppEvent(appEvent);
-    controller.setAppService(appService);
-    $(function () {
-        controller.renderApp(lib.getBody());
-        //Display backbone and underscore versions
-        $('body')
-            .append('<div>backbone version: ' + backbone.VERSION + '</div>')
-            .append('<div>underscore version: ' + underscore.VERSION + '</div>')
-            .append('<div>Example 1 - The World\'s Simplest Subscription<div class="results" id="example1"></div></div>');
-    });
-    // assign postal to the serviceBus's serviceBus property
-    serviceBus.serviceBus = postal; 
-    // The same serviceBus is used by both the ViewController and the AppController    
-    controller.setServiceBus(serviceBus);
 });
