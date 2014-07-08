@@ -26,7 +26,7 @@ define(function () {
             this.app = app;
             this.appController.setApp(app);	
         },
-		loadApp: function ( id ) {
+		loadApp: function (id) {
 			console.log('SKIN: controllerBase loadApp(id) called');			
 			this.appController.loadApp(id);
 		},        
@@ -61,7 +61,7 @@ define(function () {
 			this.view = view;
 			this.viewController.setView(view);
 		},
-		loadView: function ( id ) {
+		loadView: function (id) {
 			console.log('SKIN: controllerBase loadView(id) called');			
 			this.viewController.loadView(id);
 		},
