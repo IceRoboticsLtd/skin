@@ -3,7 +3,7 @@
  */
 define(['./Base'], function (Base) {
     console.log('SKIN: appService called');	
-    var _AppService = new Base('');
+    var _AppService = new Base('AppService');
 
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
@@ -20,7 +20,7 @@ define(['./Base'], function (Base) {
 //    channel.publish({ name: "Dr. Who" });
 
 	// An appService constructor might have a function that creates new appService instances
-	_AppService.find = function ( id ) {
+	_AppService.find = function (id) {
 		console.log('SKIN: appService find(id) called');
 		// Data used to create a new appService may come from anywhere
 		// but in this case data comes from this inline object.
