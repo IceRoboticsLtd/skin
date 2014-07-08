@@ -14,7 +14,7 @@ define(function () {
 			this.viewService = viewService;
 		},
 		// A view might have a function that returns the rendered output.
-		output = function() {
+		output: function() {
 			// Data used to create a template may come from anywhere
 			// but in this case template comes from the inline string.
 			var ourData = '<h1><%= myProperty %></h1>';
@@ -26,7 +26,7 @@ define(function () {
 			});
 		},
 		// A view might have a function that renders the output.
-		render = function () {
+		render: function () {
 			// This view renders to the element with the id of "output".
 			document.getElementById('output').innerHTML = this.output();
 		}
