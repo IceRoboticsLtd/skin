@@ -99,7 +99,7 @@ define(function (require) {
     console.log(viewService);    
     controller.setViewService(viewService);
 
-     //A fabricated API to show interaction of
+    //A fabricated API to show interaction of
     //common and specific pieces. 
 
     // DOM ready  
