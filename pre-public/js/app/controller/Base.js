@@ -10,6 +10,7 @@ define(function () {
 		setAppController: function (appController) {
 			console.log('SKIN: controllerBase setAppController(appController) called');
 			this.appController = appController;
+			this.appController.setConfig(this.config);
 		},
 		setAppEvent: function (appEvent) {
 			console.log('SKIN: controllerBase setAppEvent(appEvent) called');
@@ -29,22 +30,21 @@ define(function () {
 		loadApp: function (id) {
 			console.log('SKIN: controllerBase loadApp(id) called');			
 			this.appController.loadApp(id);
-		},
-		setViewController: function (viewController) {
-			console.log('SKIN: controllerBase setViewController(viewController) called');	
-			this.viewController = viewController;
 		},        
         setConfig: function (config) {
         	console.log('SKIN: controllerBase setConfig(config) called');
             this.config = config;
-            this.appController.setConfig(config);
-            this.viewController.setConfig(config);
         },	
 		setServiceBus: function (serviceBus) {
 			console.log('SKIN: controllerBase setServiceBus(serviceBus) called');
 			this.serviceBus = serviceBus;
             this.appController.setServiceBus(serviceBus);
             this.viewController.setServiceBus(serviceBus);			
+		},
+		setViewController: function (viewController) {
+			console.log('SKIN: controllerBase setViewController(viewController) called');	
+			this.viewController = viewController;
+			this.viewController.setConfig(this.config);
 		},
 		setViewEvent: function (viewEvent) {
 			console.log('SKIN: controllerBase setViewEvent(viewEvent) called');
