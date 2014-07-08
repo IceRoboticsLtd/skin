@@ -2,14 +2,11 @@
  * View
  */
 define(['./Base'], function (Base) {
+    console.log('SKIN: view called');	
     var _View = new Base(viewService);
 
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
-
-    // The view instance has a property called "viewService"
-    // created from the viewService.
-    this.viewService  = viewService;
 
 	// A view might have a function that returns the rendered output.
 	_View.prototype.output = function() {
@@ -28,6 +25,5 @@ define(['./Base'], function (Base) {
 		// This view renders to the element with the id of "output".
 		document.getElementById('output').innerHTML = this.output();
 	};
-
-    return this;
+    return _View;
 });

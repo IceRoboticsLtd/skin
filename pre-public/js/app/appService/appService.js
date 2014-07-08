@@ -8,10 +8,6 @@ define(['./Base'], function (Base) {
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
 
-    // The appService instance has a property called "myProperty"
-    // created from the serviceBus's "yourProperty".
-    _AppService.myProperty = this.serviceBus.yourProperty;
-
 	// The world's simplest subscription
 //    var channel = postal.channel("Name.Changed");
     // subscribe
