@@ -2,7 +2,8 @@
     appDir: '../pre-public',
     mainConfigFile: '../pre-public/js/common.js',
     dir: '../public',
-    optimizeCss: "standard",
+    optimizeCss: 'standard',
+    fileExclusionRegExp: /^\.|node_modules|Gruntfile|grunt-|libs|test|\.md|package.json/,
     modules: [
         //First set up the common build layer.
         {
