@@ -3,13 +3,13 @@
  */
 define(function () {
     console.log('SKIN: configBase called');	
-    function configBase(config) {
-        this.config = config;
+    function configBase(configs) {
+        this.configs = configs;
     };
     configBase.prototype = {
-        getConfig: function () {
-            console.log('SKIN: configBase getConfig() called');
-            return this.config;
+        getConfigs: function () {
+            console.log('SKIN: configBase getConfigs() called');
+            return this.configs;
         }
     };
     return configBase;

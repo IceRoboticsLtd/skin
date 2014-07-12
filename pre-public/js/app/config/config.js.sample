@@ -3,11 +3,11 @@
  */
 define(['./Base'], function (Base) {
     console.log('SKIN: config called');
-    var config = {
+    var configs = {
 		app_list: {
 			'calculator': true
 		}
 	};
-    var _Config = new Base(config);
+    var _Config = new Base(configs);
     return _Config;
 });
