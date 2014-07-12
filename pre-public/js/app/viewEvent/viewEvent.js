@@ -8,12 +8,13 @@ var ViewEventSubscribe = 1 << 2;
 
 define(['./Base'], function (Base) {
     console.log('SKIN: viewEvent called');     
-    var _ViewEvent = new Base('');
+    var _ViewEvent = new Base('ViewEvent');
 
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
 
-    _ViewEvent.raiseEvent = function ( flag ) {
+    // A viewEvent constructor might have a function that raises an event
+    _ViewEvent.raiseEvent = function (flag) {
         // Check if ViewEvent123 was passed.
         if (flag & ViewEvent123) {
             console.log('SKIN: viewEvent123 raised');             
@@ -33,5 +34,6 @@ define(['./Base'], function (Base) {
             _ViewController.subscribeViewService('subscribe');
         }        
     };
+    // return the viewEvent instance
     return _ViewEvent;
 });

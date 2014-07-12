@@ -5,6 +5,7 @@ define(function () {
 	console.log('SKIN: viewServiceBase called');	
     function viewServiceBase(id) {
         this.id = id;
+        this.title = 'viewService default title';
         this.myProperty = {};         
     };
     viewServiceBase.prototype = {
@@ -20,6 +21,14 @@ define(function () {
             this.config = config;
             // Subscribe to the serviceBus with channels and topics from config
             // TO DO
+        },
+        getTitle: function () {
+            console.log('SKIN: viewServiceBase getTitle() called');            
+            return this.title;
+        },
+        setTitle: function (title) {
+            console.log('SKIN: viewServiceBase setTitle(title) called');            
+            this.title = title;
         }
     };
     return viewServiceBase;

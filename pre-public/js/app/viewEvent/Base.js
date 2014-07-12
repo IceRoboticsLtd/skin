@@ -7,7 +7,7 @@ define(function () {
         this.id = id;
     }
     viewEventBase.prototype = {
-		// to do
+		// 
     };
     return viewEventBase;
 });

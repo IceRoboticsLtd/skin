@@ -8,12 +8,13 @@ var AppEventSubscribe = 1 << 2;
 
 define(['./Base'], function (Base) {
     console.log('SKIN: appEvent called');
-    var _AppEvent = new Base(flag);
+    var _AppEvent = new Base('AppEvent');
 
     // following this example, slightly
     // http://sandbox.thewikies.com/javascript-mvc-hello-world/index.2.html
 
-    _AppEvent.raiseEvent = function ( flag ) {
+    // An appEvent constructor might have a function that raises an event
+	_AppEvent.raiseEvent = function (flag) {
         // Check if AppEvent123 was passed.
         if (flag & AppEvent123) {
             console.log('SKIN: appEvent123 raised');
@@ -33,5 +34,6 @@ define(['./Base'], function (Base) {
             _AppController.subscribeAppService();
         }         
     };
+    // return the appEvent instance
     return _AppEvent;
 });

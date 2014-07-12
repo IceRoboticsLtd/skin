@@ -9,11 +9,7 @@ define(function () {
     viewControllerBase.prototype = {
 		setServiceBus: function (serviceBus) {
 			console.log('SKIN: viewControllerBase setServiceBus(serviceBus) called');		
-			this.serviceBus = serviceBus;
-	        // Get the viewService.
-	        var viewService = this.viewService.find(id);
-	        // Set the serviceBus.
-	        viewService.setServiceBus(serviceBus);			
+			this.serviceBus = serviceBus;			
 		},
 		setView: function (view) {
 			console.log('SKIN: viewControllerBase setView(view) called');		
@@ -22,6 +18,7 @@ define(function () {
 		setViewService: function (viewService) {
 			console.log('SKIN: viewControllerBase setViewService(viewService) called');		
 			this.viewService = viewService;
+			this.viewService.setServiceBus(this.serviceBus);
 		},
 		setViewEvent: function (viewEvent) {
 			console.log('SKIN: viewControllerBase setViewEvent(viewEvent) called');			
@@ -49,10 +46,8 @@ define(function () {
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: viewControllerBase renderView(bodyDom) called');
-			// Make dynamic
-    //        bodyDom.prepend('<h2>ViewController ' + this.id + ' says "' +
-    //                  this.app.getTitle() + '"</h2>');
-            bodyDom.prepend('Calculator Icon here');
+            bodyDom.prepend('<h2>ViewController ' + this.id + ' says "' +
+                      this.viewService.getTitle() + '"</h2>');
         }
     };
     return viewControllerBase;

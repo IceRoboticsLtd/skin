@@ -18,6 +18,7 @@ define(function () {
 		setAppService: function (appService) {
 			console.log('SKIN: appControllerBase setAppService(appService) called');		
 			this.appService = appService;
+			this.appService.setServiceBus(this.serviceBus);
 		},
 		setAppEvent: function (appEvent) {
 			console.log('SKIN: appControllerBase setAppEvent(appEvent) called');			

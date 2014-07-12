@@ -11,6 +11,7 @@ define(function () {
 			console.log('SKIN: controllerBase setAppController(appController) called');
 			this.appController = appController;
 			this.appController.setConfig(this.config);
+            this.appController.setServiceBus(this.serviceBus);		
 		},
 		setAppEvent: function (appEvent) {
 			console.log('SKIN: controllerBase setAppEvent(appEvent) called');
@@ -37,14 +38,13 @@ define(function () {
         },	
 		setServiceBus: function (serviceBus) {
 			console.log('SKIN: controllerBase setServiceBus(serviceBus) called');
-			this.serviceBus = serviceBus;
-            this.appController.setServiceBus(serviceBus);
-            this.viewController.setServiceBus(serviceBus);			
+			this.serviceBus = serviceBus;			
 		},
 		setViewController: function (viewController) {
 			console.log('SKIN: controllerBase setViewController(viewController) called');	
 			this.viewController = viewController;
 			this.viewController.setConfig(this.config);
+			this.viewController.setServiceBus(this.serviceBus);
 		},
 		setViewEvent: function (viewEvent) {
 			console.log('SKIN: controllerBase setViewEvent(viewEvent) called');
