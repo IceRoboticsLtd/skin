@@ -29,6 +29,7 @@ module.exports.configs = {
 		'localhost:3000': true,
 		'localhost:3001': true
 	},
+	access_control_allow_origin : '*', // put the allowed page requesters here, * means anyone
 	title : 'Your Company', // put the page title here
 	web_root : '/skin/public' // put your web root here, starting with a slash forward (/)
 }

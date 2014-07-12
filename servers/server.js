@@ -252,6 +252,13 @@ else {
 	var title = configs.title;
 }
 
+if(typeof configs.access_control_allow_origin === 'undefined'){
+	var access_control_allow_origin = '*';
+}
+else {
+	var access_control_allow_origin = configs.access_control_allow_origin;
+}
+
 if(typeof configs.web_root === 'undefined'){
 	var web_root = '';
 }
@@ -268,7 +275,7 @@ else {
 
 // routing to pages
 app.get('/', function(req, res) {
-    res.render('page', { title: title, host: host, web_root: web_root, layout: false });
+    res.render('page', { title: title, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, layout: false });
 });
 
 var app_server = app.listen(app_port, function() {

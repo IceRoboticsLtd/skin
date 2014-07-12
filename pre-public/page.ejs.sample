@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="humans.txt" />
-        <meta http-equiv="Access-Control-Allow-Origin" content="*" /><!-- TO DO: change the * for a restricted set of domains -->
+        <meta http-equiv="Access-Control-Allow-Origin" content="<%= access_control_allow_origin %>" />
         <meta http-equiv="Access-Control-Allow-Methods" content="GET, POST, PUT" />
         <link rel="shortcut icon" type"image/x-icon" href="favicon.png" />
         <link rel="shortcut icon" type"image/png" href="favicon.png" />
