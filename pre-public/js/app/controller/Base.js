@@ -48,6 +48,7 @@ define(function () {
 		setViewController: function (viewController) {
 			console.log('SKIN: controllerBase setViewController(viewController) called');	
 			this.viewController = viewController;
+			this.viewController.setStore(this.store);			
 			this.viewController.setConfig(this.config);
 			this.viewController.setServiceBus(this.serviceBus);
 		},
