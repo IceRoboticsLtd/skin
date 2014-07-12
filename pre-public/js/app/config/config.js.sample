@@ -4,8 +4,31 @@
 define(['./Base'], function (Base) {
     console.log('SKIN: config called');
     var configs = {
-		app_list: {
-			'calculator': true
+		store_list: {
+			'mydefaultstore': {
+				views: {
+					mydefaultstore: {
+						someKey: 'someValue',
+						subscriptions: [
+							{
+								channel: 'mydefaultstore',
+								topic: 'doneCalculator'
+							}
+						]
+					}
+				},
+				apps: {
+					calculator: {
+						someKey: 'someValue',
+						subscriptions: [
+							{
+								channel: 'mydefaultstore',
+								topic: 'doCalculator'
+							}
+						]
+					}
+				}
+			}
 		}
 	};
     var _Config = new Base(configs);

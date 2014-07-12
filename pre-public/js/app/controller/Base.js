@@ -7,9 +7,14 @@ define(function () {
         this.id = id;
     };
     controllerBase.prototype = {
+    	setStore: function (store) {
+			console.log('SKIN: controllerBase setStore(store) called');
+			this.store = store;
+		},
 		setAppController: function (appController) {
 			console.log('SKIN: controllerBase setAppController(appController) called');
 			this.appController = appController;
+			this.appController.setStore(this.store);
 			this.appController.setConfig(this.config);
             this.appController.setServiceBus(this.serviceBus);		
 		},

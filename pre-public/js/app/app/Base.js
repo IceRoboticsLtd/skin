@@ -5,7 +5,7 @@ define(function () {
     console.log('SKIN: appBase called');	
     function appBase(id) {
         this.id = id;
-        this.keyValuePairs = [];
+        this.keyValuePairs = {};
     };
     appBase.prototype = {
         getTitle: function () {
@@ -33,6 +33,10 @@ define(function () {
         setKeyValuePairs: function (keyValuePairs) {
             console.log('SKIN: appBase setKeyValuePairs(keyValuePairs) called');         
             this.keyValuePairs = keyValuePairs;
+        },  
+        setAppService: function (appService) {
+            console.log('SKIN: appBase setAppService(appService) called');          
+            this.appService = appService;
         }
     };
     return appBase;

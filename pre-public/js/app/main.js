@@ -56,6 +56,10 @@ define(function (require) {
     /*
      * STEP 1: Shared modules
      */
+    // Set store
+    console.log('SKIN: store:');
+    console.log('mydefaultstore'); // TO DO: Make dynamic, not hard-coded
+    controller.setStore('mydefaultstore');   
     // Set config
     console.log('SKIN: config:');
     console.log(config);
