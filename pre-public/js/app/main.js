@@ -2,7 +2,7 @@
  * Main
  */
 define(function (require) {
-    console.log('main called');
+    console.log('SKIN: main called');
     var $ = require('jquery'),
         lib = require('./lib'),
         config = require('./config/config'),        
@@ -28,21 +28,21 @@ define(function (require) {
         //postaldiags = require('postaldiags');
 
     // Backbone check
-    console.log('backbone:');
+    console.log('SKIN: backbone:');
     console.log(backbone);
     // JQuery check
-    console.log('jquery:');
+    console.log('SKIN: jquery:');
     console.log(jquery); 
     jquery.VERSION = jquery.fn.jquery;
     // Bootstrap check
-    console.log('bootstrap:');
+    console.log('SKIN: bootstrap:');
     console.log(bootstrap);
     // Expect check
-    console.log('expect:');
+    console.log('SKIN: expect:');
     console.log(expect);
     expect.VERSION = expect.version;
     // Mocha check
-    console.log('mocha:');
+    console.log('SKIN: mocha:');
     console.log(mocha);
     // ConduitJS check
 //    console.log('conduitjs:');
@@ -57,11 +57,11 @@ define(function (require) {
      * STEP 1: Shared modules
      */
     // Set config
-    console.log('config:');
+    console.log('SKIN: config:');
     console.log(config);
     controller.setConfig(config);
     // Set serviceBus
-    console.log('serviceBus:');
+    console.log('SKIN: serviceBus:');
     console.log(serviceBus);
     // assign postal to the serviceBus's serviceBus property
 //    serviceBus.serviceBus = postal; 
@@ -71,35 +71,35 @@ define(function (require) {
      * STEP 2: Non-shared modules
      */    
     // Set appController
-    console.log('appController:');
+    console.log('SKIN: appController:');
     console.log(appController);
     controller.setAppController(appController); 
     // Set app
-    console.log('app:');
+    console.log('SKIN: app:');
     console.log(app);
     controller.setApp(app);
     // Set appEvent
-    console.log('appEvent:');
+    console.log('SKIN: appEvent:');
     console.log(appEvent);
     controller.setAppEvent(appEvent);
     // Set appService
-    console.log('appService:');
+    console.log('SKIN: appService:');
     console.log(appService); 
     controller.setAppService(appService);
     // Set viewController
-    console.log('viewController:');
+    console.log('SKIN: viewController:');
     console.log(viewController);
     controller.setViewController(viewController);
     // Set view
-    console.log('view:');
+    console.log('SKIN: view:');
     console.log(view);    
     controller.setView(view);
     // Set viewEvent
-    console.log('viewEvent:');
+    console.log('SKIN: viewEvent:');
     console.log(viewEvent);
     controller.setViewEvent(viewEvent);
     // Set viewService
-    console.log('viewService:');
+    console.log('SKIN: viewService:');
     console.log(viewService);    
     controller.setViewService(viewService);
 
