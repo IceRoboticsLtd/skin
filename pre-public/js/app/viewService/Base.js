@@ -43,7 +43,19 @@ define(function () {
                 console.log('SKIN: viewServiceBase topicArray:');
                 console.log(topicArray);
                 // Now we should have one channel and one or more topics
-                // TO DO: subscribe to the channel+topic for each topic
+                for(topic in topicArray) {
+                    var topic = topicArray[topic];
+                    var callback = function(data, envelope){
+                        // empty for now
+                        console.log(data);
+                    };
+                    // Subscribe to the channel+topic for each topic, 
+                    // with callback for processing of received data            
+                    var options = { channel: channel, topic: topic, callback: callback};
+                    console.log('SKIN: viewServiceBase options:');
+                    console.log(options);
+                    this.serviceBus.subscribe(options); // NOTE: For some reason this.serviceBus is undefined
+                }
             });
         },
         getTitle: function () {
