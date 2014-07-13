@@ -20,7 +20,7 @@ define(function (require) {
         underscore = require('underscore'),
         lodash = require('lodash'),
         jquery = require('jquery'),
-        bootstrap = require('bootstrap'); // bootstrap extends jquery
+        bootstrap = require('bootstrap'), // bootstrap extends jquery
         expect = require('expect'),
         mocha = require('mocha');
         //conduitjs = require('conduit'), // depends on bootstrap, expect, and mocha
