@@ -110,9 +110,13 @@ define(function () {
 	        for (key in this.appArray) {
 	        	console.log('SKIN: appControllerBase app ' + key + ' in appArray');
 	        	var app = this.appArray[key];
-
-				// to do
-
+	        	console.log(app);
+	        	for (key in app) {
+	        		if (key == 'appService') {
+	        			var appService = app[key];
+	        			appService.subscribe();
+	        		}
+	        	}
 	        }
 	    },	    
         renderView: function (bodyDom) {
