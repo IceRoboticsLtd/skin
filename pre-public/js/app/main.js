@@ -74,38 +74,38 @@ define(function (require) {
     /*
      * STEP 2: Non-shared modules
      */    
-    // Set appController
+    // Set appController, before appService
     console.log('SKIN: appController:');
     console.log(appController);
     controller.setAppController(appController); 
-    // Set app
+    // Set appService, before app
+    console.log('SKIN: appService:');
+    console.log(appService); 
+    controller.setAppService(appService);    
+    // Set app, after appService
     console.log('SKIN: app:');
     console.log(app);
     controller.setApp(app);
-    // Set appEvent
+    // Set appEvent, after app
     console.log('SKIN: appEvent:');
     console.log(appEvent);
     controller.setAppEvent(appEvent);
-    // Set appService
-    console.log('SKIN: appService:');
-    console.log(appService); 
-    controller.setAppService(appService);
-    // Set viewController
+    // Set viewController, before viewService
     console.log('SKIN: viewController:');
     console.log(viewController);
     controller.setViewController(viewController);
-    // Set view
+    // Set viewService, before view
+    console.log('SKIN: viewService:');
+    console.log(viewService);    
+    controller.setViewService(viewService);    
+    // Set view, after viewService
     console.log('SKIN: view:');
     console.log(view);    
     controller.setView(view);
-    // Set viewEvent
+    // Set viewEvent, after view
     console.log('SKIN: viewEvent:');
     console.log(viewEvent);
     controller.setViewEvent(viewEvent);
-    // Set viewService
-    console.log('SKIN: viewService:');
-    console.log(viewService);    
-    controller.setViewService(viewService);
 
     //A fabricated API to show interaction of
     //common and specific pieces. 

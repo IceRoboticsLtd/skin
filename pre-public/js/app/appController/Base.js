@@ -52,9 +52,25 @@ define(function () {
 						var app_keyValuePairs = apps[key];
 						console.log('SKIN: appControllerBase app ' + key + ' key value pairs:');
 						console.log(app_keyValuePairs);
-						// create a new app from these keyValuePairs and store in app array
+						// appService is a template, ready to be made specific based on the new app's keyValuePairs
+						// Create a new appService
+						var newAppService = cloneObject(this.appService);
+						newAppService.setServiceBus(this.serviceBus);
+						// Set subscriptions to newAppService
+						for(key in app_keyValuePairs) {
+							if(key == 'subscriptions') {
+								var subscriptions = app_keyValuePairs[key];
+								console.log('SKIN: appControllerBase subscriptions in key value pairs:');
+								console.log(subscriptions);
+								newAppService.setSubscriptions(subscriptions);
+							}
+						}
+						// Create a new app for these keyValuePairs
 						var newApp = cloneObject(this.app);
 						newApp.setKeyValuePairs(app_keyValuePairs);
+						// Set new app service on the new app
+						newApp.setAppService(newAppService);
+						// Add new app to view array
 						this.appArray[i] = newApp;
 						console.log('SKIN: appControllerBase appArray [' + i + ']');
 						console.log(this.appArray[i]);
@@ -70,7 +86,6 @@ define(function () {
 		setAppService: function (appService) {
 			console.log('SKIN: appControllerBase setAppService(appService) called');		
 			this.appService = appService;
-			this.appService.setServiceBus(this.serviceBus);
 		},
 		setAppEvent: function (appEvent) {
 			console.log('SKIN: appControllerBase setAppEvent(appEvent) called');			
@@ -82,20 +97,19 @@ define(function () {
 		},
     	loadApp: function (id) {
 			console.log('SKIN: appControllerBase loadApp(id) called');    		
-	        // Get the appService.
-	        var appService = this.appService.find(id);
+	        // Get the appService from the app array
+	    // OLD    var appService = this.appService.find(id);
 	        // Get a new app
-	        var app = new this.app(appService);
+	    // OLD    var app = new this.app(appService);
 	        // run the app's render function
-	        app.render();
+	    //    app.render();
 	    },
 	    subscribeAppService: function(id) {
 			console.log('SKIN: appControllerBase subscribeAppService(id) called');  	    	
-	        // Get the appService.
-	        var appService = this.appService.find(id);    	
-	    	// run the appService's subscribe function, using config
-	    	var config = { channel: 'calculator', appTopics: ['calculate']}; // to do: get these from this.config
-	    	appService.subscribe(config);
+	        // Get the appService from the app array
+	    // OLD    var appService = this.appService.find(id);    	
+	    	// run the appService's subscribe function
+	    	appService.subscribe();
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: appControllerBase renderView(bodyDom) called');    	

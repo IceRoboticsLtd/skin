@@ -14,11 +14,14 @@ define(function () {
             // The appService instance has a property called "myProperty"
             // created from the serviceBus's "yourProperty".
             this.myProperty = this.serviceBus.yourProperty;			
-		},    	
-		subscribe: function (config) {
-			console.log('SKIN: appServiceBase subscribe(config) called');	
-			this.config = config;
-			// Subscribe to the serviceBus with channels and topics from config
+		},
+        setSubscriptions: function (subscriptions){
+            console.log('SKIN: appServiceBase setSubscriptions(subscriptions) called');
+            this.subscriptions = subscriptions;
+        },           	
+		subscribe: function () {
+			console.log('SKIN: appServiceBase subscribe() called');	
+			// Subscribe to the serviceBus with channels and topics from subscriptions
 			// TO DO
 		}
     };

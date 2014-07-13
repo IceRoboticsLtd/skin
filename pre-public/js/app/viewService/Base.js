@@ -15,11 +15,14 @@ define(function () {
             // The viewService instance has a property called "myProperty"
             // created from the serviceBus's "yourProperty".
             this.myProperty = this.serviceBus.yourProperty;              
-		},     
-        subscribe: function (config) {
-            console.log('SKIN: viewServiceBase subscribe(config) called'); 
-            this.config = config;
-            // Subscribe to the serviceBus with channels and topics from config
+		}, 
+        setSubscriptions: function (subscriptions){
+            console.log('SKIN: viewServiceBase setSubscriptions(subscriptions) called');
+            this.subscriptions = subscriptions;
+        },            
+        subscribe: function () {
+            console.log('SKIN: viewServiceBase subscribe() called'); 
+            // Subscribe to the serviceBus with channels and topics from subscriptions
             // TO DO
         },
         getTitle: function () {

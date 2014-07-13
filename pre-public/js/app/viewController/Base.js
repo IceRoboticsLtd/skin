@@ -52,9 +52,25 @@ define(function () {
 						var view_keyValuePairs = views[key];
 						console.log('SKIN: viewControllerBase view ' + key + ' key value pairs:');
 						console.log(view_keyValuePairs);
-						// create a new view from these keyValuePairs and store in view array
+						// viewService is a template, ready to be made specific based on the new view's keyValuePairs
+						// Create a new viewService
+						var newViewService = cloneObject(this.viewService);
+						newViewService.setServiceBus(this.serviceBus);
+						// Set subscriptions to newViewService
+						for(key in view_keyValuePairs) {
+							if(key == 'subscriptions') {
+								var subscriptions = view_keyValuePairs[key];
+								console.log('SKIN: viewControllerBase subscriptions in key value pairs:');
+								console.log(subscriptions);
+								newViewService.setSubscriptions(subscriptions);
+							}
+						}
+						// Create a new view for these keyValuePairs
 						var newView = cloneObject(this.view);
 						newView.setKeyValuePairs(view_keyValuePairs);
+						// Set new view service on the new view
+						newView.setViewService(newViewService);
+						// Add new view to view array
 						this.viewArray[i] = newView;
 						console.log('SKIN: viewControllerBase viewArray [' + i + ']');
 						console.log(this.viewArray[i]);
@@ -70,7 +86,6 @@ define(function () {
 		setViewService: function (viewService) {
 			console.log('SKIN: viewControllerBase setViewService(viewService) called');		
 			this.viewService = viewService;
-			this.viewService.setServiceBus(this.serviceBus);
 		},
 		setViewEvent: function (viewEvent) {
 			console.log('SKIN: viewControllerBase setViewEvent(viewEvent) called');			
@@ -82,19 +97,18 @@ define(function () {
 		},
     	loadView: function (id) {
 			console.log('SKIN: viewControllerBase loadView(id) called');    		
-	        // Get the viewService.
-	        var viewService = this.viewService.find(id);
+	        // Get the viewService from the view array
+	    //OLD    var viewService = this.viewService.find(id);
 	        // Get a new view
-	        var view = new this.view(viewService);
+	    //OLD    var view = new this.view(viewService);
 	        // do something with the view
 	    },
 	    subscribeViewService: function(id) {
 			console.log('SKIN: viewControllerBase subscribeViewService(id) called');  	    	
-	        // Get the viewService.
-	        var viewService = this.viewService.find(id);    	
-	    	// run the viewService's subscribe function, using config
-	    	var config = { channel: 'calculator', viewTopics: ['calculate']}; // to do: get these from this.config
-	    	viewService.subscribe(config);
+	        // Get the viewService from the view array
+	    //OLD    var viewService = this.viewService.find(id);    	
+	    	// run the viewService's subscribe function
+	    	// viewService.subscribe();
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: viewControllerBase renderView(bodyDom) called');
