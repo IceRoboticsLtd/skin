@@ -24,14 +24,26 @@ define(function () {
             console.log('SKIN: viewServiceBase subscribe() called'); 
             // Subscribe to the serviceBus with channels and topics from subscriptions
             this.subscriptions.forEach( function (subscription) {
+                var topicArray = new Array();
                 for (key in subscription) {
+                    // One subscription has one channel                    
                     if(key == 'channel') {
                         var channel = subscription[key];
                         console.log('SKIN: viewServiceBase channel:');
                         console.log(channel);
-                        // TO DO
                     }
+                    // One channel has one or more topics
+                    if(key == 'topic') {
+                        var topic = subscription[key];
+                        console.log('SKIN: viewServiceBase topic:');
+                        console.log(topic);
+                        topicArray.push(topic);
+                    }                     
                 }
+                console.log('SKIN: viewServiceBase topicArray:');
+                console.log(topicArray);
+                // Now we should have one channel and one or more topics
+                // TO DO: subscribe to the channel+topic for each topic
             });
         },
         getTitle: function () {
