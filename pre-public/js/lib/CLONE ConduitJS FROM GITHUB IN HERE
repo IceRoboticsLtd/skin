@@ -1,0 +1,7 @@
+# First clone the following repository into this directory, named 'conduitjs', like so:
+
+git clone https://github.com/ifandelse/ConduitJS.git conduitjs
+
+# Next time, when in need of an update, pull (= combines fetch and merge) the same repository from within the 'conduitjs' directory simply like so:
+
+git pull
