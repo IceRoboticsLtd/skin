@@ -23,7 +23,16 @@ define(function () {
         subscribe: function () {
             console.log('SKIN: viewServiceBase subscribe() called'); 
             // Subscribe to the serviceBus with channels and topics from subscriptions
-            // TO DO
+            this.subscriptions.forEach( function (subscription) {
+                for (key in subscription) {
+                    if(key == 'channel') {
+                        var channel = subscription[key];
+                        console.log('SKIN: viewServiceBase channel:');
+                        console.log(channel);
+                        // TO DO
+                    }
+                }
+            });
         },
         getTitle: function () {
             console.log('SKIN: viewServiceBase getTitle() called');            
