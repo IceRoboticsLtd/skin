@@ -105,11 +105,15 @@ define(function () {
 	    //    app.render();
 	    },
 	    subscribeAppService: function() {
-			console.log('SKIN: appControllerBase subscribeAppService() called');  	    	
-	        // Get the appService from the app array
-	    // OLD    var appService = this.appService.find(id);    	
-	    	// run the appService's subscribe function
-	    	// appService.subscribe();
+			console.log('SKIN: appControllerBase subscribeAppService() called'); 
+	        // Get the appService from the app in the appArray
+	        for (key in this.appArray) {
+	        	console.log('SKIN: appControllerBase app ' + key + ' in appArray');
+	        	var app = this.appArray[key];
+
+				// to do
+
+	        }
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: appControllerBase renderView(bodyDom) called');    	

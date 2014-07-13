@@ -105,10 +105,13 @@ define(function () {
 	    },
 	    subscribeViewService: function() {
 			console.log('SKIN: viewControllerBase subscribeViewService() called');  	    	
-	        // Get the viewService from the view array
-	    //OLD    var viewService = this.viewService.find(id);    	
-	    	// run the viewService's subscribe function
-	    	// viewService.subscribe();
+	        for (key in this.viewArray) {
+	        	console.log('SKIN: viewControllerBase view ' + key + ' in viewArray');
+	        	var view = this.viewArray[key];
+
+				// to do
+
+	        }
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: viewControllerBase renderView(bodyDom) called');
