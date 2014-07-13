@@ -36,7 +36,11 @@ define(function () {
 		loadApp: function (id) {
 			console.log('SKIN: controllerBase loadApp(id) called');			
 			this.appController.loadApp(id);
-		},        
+		},   
+        subscribeAppService: function() {
+        	console.log('SKIN: controllerBase subscribeAppService() called');
+        	this.appController.subscribeAppService(); 
+        },
         setConfig: function (config) {
         	console.log('SKIN: controllerBase setConfig(config) called');
             this.config = config;
@@ -74,8 +78,10 @@ define(function () {
         renderView: function (bodyDom) {
         	console.log('SKIN: controllerBase renderView(bodyDom) called');     	
 			this.viewController.renderView(bodyDom);
-        //    bodyDom.prepend('<h1>Controller ' + this.id + ' says "' +
-        //              this.model.getTitle() + '"</h2>');
+        },
+        subscribeViewService: function() {
+        	console.log('SKIN: controllerBase subscribeViewService() called');
+        	this.viewController.subscribeViewService(); 
         }
     };
     return controllerBase;

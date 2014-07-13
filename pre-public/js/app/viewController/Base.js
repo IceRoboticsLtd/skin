@@ -103,8 +103,8 @@ define(function () {
 	    //OLD    var view = new this.view(viewService);
 	        // do something with the view
 	    },
-	    subscribeViewService: function(id) {
-			console.log('SKIN: viewControllerBase subscribeViewService(id) called');  	    	
+	    subscribeViewService: function() {
+			console.log('SKIN: viewControllerBase subscribeViewService() called');  	    	
 	        // Get the viewService from the view array
 	    //OLD    var viewService = this.viewService.find(id);    	
 	    	// run the viewService's subscribe function
