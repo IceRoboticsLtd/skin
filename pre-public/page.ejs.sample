@@ -13,120 +13,6 @@
         <!--[if IE]>
             <link rel="shortcut icon" href="favicon.ico" />
         <![endif]-->
-        <!-- CSS -->
-        <style type="text/css">
-             /**
-             * Example of an initial loading indicator.
-             * It is recommended to keep this as minimal as possible to provide instant feedback
-             * while other resources are still being loaded for the first time
-             */
-            html, body {
-                height: 100%;
-                background-image: url('img/bg/noise.png') !important;
-                background-color: rgb(217, 219, 222);
-            }
-     
-            #appLoadingIndicator {
-                position: absolute;
-                top: 50%;
-                margin-top: -15px;
-                text-align: center;
-                width: 100%;
-                height: 30px;
-            }
-            
-            #first {
-                -webkit-animation-name: first;
-                -webkit-animation-duration: 0.5s;
-                -webkit-animation-iteration-count: infinite;
-                -webkit-animation-direction: linear;            
-            }
-
-            #second {
-                -webkit-animation-name: second;
-                -webkit-animation-duration: 0.5s;
-                -webkit-animation-iteration-count: infinite;
-                -webkit-animation-direction: linear;            
-            }
-
-            #third {
-                -webkit-animation-name: third;
-                -webkit-animation-duration: 0.5s;
-                -webkit-animation-iteration-count: infinite;
-                -webkit-animation-direction: linear;            
-            }
-            
-            #appLoadingIndicator div {
-                background-color: #FFFFFF;
-                display: inline-block;
-                height: 30px;
-                -webkit-border-radius: 15px;
-                margin: 0 5px;
-                width: 30px;
-                opacity: 0.8;
-            }
-
-            #appLoadingIndicator p {
-                color: #FFFFFF;
-                text-align: center;
-                width: 100%;
-                margin-bottom: 20px;
-            }    
-            
-            @-webkit-keyframes first{
-                0% {
-                    opacity: 0.8
-                }
-                33% {
-                    opacity: 0.4
-                }
-                50% {
-                    opacity: 0
-                }
-                66% {
-                    opacity: 0.4
-                }
-                100% {
-                    opacity: 0.8
-                }
-            }
-            
-            @-webkit-keyframes second{
-                0% {
-                    opacity: 0.8
-                }
-                33% {
-                    opacity: 0.8
-                }
-                50% {
-                    opacity: 0.4
-                }
-                66% {
-                    opacity: 0.0
-                }
-                100% {
-                    opacity: 0.4
-                }
-            }
-
-            @-webkit-keyframes third{
-                0% {
-                    opacity: 0.4
-                }
-                33% {
-                    opacity: 0.8
-                }
-                50% {
-                    opacity: 0.8
-                }
-                66% {
-                    opacity: 0.4
-                }
-                100% {
-                    opacity: 0.0
-                }
-            }
-        </style>        
         <script >
         // See http://www.ejeliot.com/blog/109
             function loadScript(src, async, elem, callback){
@@ -186,7 +72,121 @@
     </head>
     <body onload="loadScript('js/lib/require.js', true, null, doNext)">
         <div id="page">
-            <div id="appLoadingIndicator">
+            <!-- loadingCSS -->
+            <style type="text/css">
+                 /**
+                 * Example of an initial loading indicator.
+                 * It is recommended to keep this as minimal as possible to provide instant feedback
+                 * while other resources are still being loaded for the first time
+                 */
+                html, body {
+                    height: 100%;
+                    background-image: url('img/bg/noise.png') !important;
+                    background-color: rgb(217, 219, 222);
+                }
+         
+                #loadingIndicator {
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -15px;
+                    text-align: center;
+                    width: 100%;
+                    height: 30px;
+                }
+                
+                #first {
+                    -webkit-animation-name: first;
+                    -webkit-animation-duration: 0.5s;
+                    -webkit-animation-iteration-count: infinite;
+                    -webkit-animation-direction: linear;            
+                }
+
+                #second {
+                    -webkit-animation-name: second;
+                    -webkit-animation-duration: 0.5s;
+                    -webkit-animation-iteration-count: infinite;
+                    -webkit-animation-direction: linear;            
+                }
+
+                #third {
+                    -webkit-animation-name: third;
+                    -webkit-animation-duration: 0.5s;
+                    -webkit-animation-iteration-count: infinite;
+                    -webkit-animation-direction: linear;            
+                }
+                
+                #loadingIndicator div {
+                    background-color: #FFFFFF;
+                    display: inline-block;
+                    height: 30px;
+                    -webkit-border-radius: 15px;
+                    margin: 0 5px;
+                    width: 30px;
+                    opacity: 0.8;
+                }
+
+                #loadingIndicator p {
+                    color: #FFFFFF;
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 20px;
+                }    
+                
+                @-webkit-keyframes first{
+                    0% {
+                        opacity: 0.8
+                    }
+                    33% {
+                        opacity: 0.4
+                    }
+                    50% {
+                        opacity: 0
+                    }
+                    66% {
+                        opacity: 0.4
+                    }
+                    100% {
+                        opacity: 0.8
+                    }
+                }
+                
+                @-webkit-keyframes second{
+                    0% {
+                        opacity: 0.8
+                    }
+                    33% {
+                        opacity: 0.8
+                    }
+                    50% {
+                        opacity: 0.4
+                    }
+                    66% {
+                        opacity: 0.0
+                    }
+                    100% {
+                        opacity: 0.4
+                    }
+                }
+
+                @-webkit-keyframes third{
+                    0% {
+                        opacity: 0.4
+                    }
+                    33% {
+                        opacity: 0.8
+                    }
+                    50% {
+                        opacity: 0.8
+                    }
+                    66% {
+                        opacity: 0.4
+                    }
+                    100% {
+                        opacity: 0.0
+                    }
+                }
+            </style>        
+            <div id="loadingIndicator">
                 <p>LOADING</p>
                 <div id="first"></div>
                 <div id="second"></div>
