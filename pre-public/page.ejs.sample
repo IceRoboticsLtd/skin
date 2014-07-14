@@ -13,7 +13,9 @@
         <!--[if IE]>
             <link rel="shortcut icon" href="favicon.ico" />
         <![endif]-->
-        <script >
+        <!--CSS-->
+        <style type="text/css" src="css/style.css"></style>        
+        <script>
         // See http://www.ejeliot.com/blog/109
             function loadScript(src, async, elem, callback){
                 console.log('SKIN: loadScript called');
