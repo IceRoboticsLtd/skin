@@ -520,9 +520,17 @@ define(['./Base'], function (Base) {
     };
     function subscribe(options) {
         console.log('SKIN: ServiceBus subscribe(options) called');
-        var subDef = new SubscriptionDefinition(options.channel || _ServiceBus.configuration.DEFAULT_CHANNEL, options.topic, options.callback);     
-        // to do
-
+        var subDef = new SubscriptionDefinition(options.channel || this.configuration.DEFAULT_CHANNEL, options.topic, options.callback);
+        var channel = this.subscriptions[subDef.channel];
+        var subs;
+        if (!channel) {
+            channel = this.subscriptions[subDef.channel] = {};
+        }
+        subs = this.subscriptions[subDef.channel][subDef.topic];
+        if (!subs) {
+            subs = this.subscriptions[subDef.channel][subDef.topic] = [];
+        }
+        subs.push(subDef);
         return subDef;
     };
     function publish(envelope) {
