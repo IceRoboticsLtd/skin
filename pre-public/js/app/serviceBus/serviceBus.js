@@ -136,23 +136,35 @@ define(['./Base'], function (Base) {
      */
     var ChannelDefinition = function (channelName) {
         console.log('SKIN: ServiceBus ChannelDefinition(channelName) called');  
-    //    this.channel = channelName || this.configuration.DEFAULT_CHANNEL;
-    //    this.initialize();
-    };
-    console.log('******** I AM HERE: line BB **********');    
+        this.channel = channelName || _ServiceBus.configuration.DEFAULT_CHANNEL;
+        this.initialize();
+    };   
     ChannelDefinition.prototype.initialize = function () {
         console.log('SKIN: ServiceBus ChannelDefinition.prototype.initialize() called');
-        // to do
-    };
-    console.log('******** I AM HERE: line CC **********');    
+        var oldPub = this.publish;
+        this.publish = new Conduit.Async({
+            target: oldPub,
+            context: this
+        });
+    };    
     ChannelDefinition.prototype.subscribe = function () {
         console.log('SKIN: ServiceBus ChannelDefinition.prototype.subscribe() called');
-        // to do
-    };
-    console.log('******** I AM HERE: line DD **********');    
+        return _ServiceBus.subscribe({
+            channel: this.channel,
+            topic: (arguments.length === 1 ? arguments[0].topic : arguments[0]),
+            callback: (arguments.length === 1 ? arguments[0].callback : arguments[1])
+        });
+    };    
     ChannelDefinition.prototype.publish = function () {
         console.log('SKIN: ServiceBus ChannelDefinition.prototype.publish() called');
-        // to do
+        var envelope = arguments.length === 1 ? (Object.prototype.toString.call(arguments[0]) === "[object String]" ? {
+            topic: arguments[0]
+        } : arguments[0]) : {
+            topic: arguments[0],
+            data: arguments[1]
+        };
+        envelope.channel = this.channel;
+        _ServiceBus.publish(envelope);
     };
     /*
      * Subscription
