@@ -9,6 +9,7 @@ define(['./Base'], function (Base) {
 				views: {
 					mydefaultstore: {
 						someKey: 'someValue',
+						htmlSource: '<h2>I am a view of my default store</h2>',
 						subscriptions: [
 							{
 								channel: 'mydefaultstore',

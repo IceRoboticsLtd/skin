@@ -102,6 +102,15 @@ define(function () {
 	        // Get a new view
 	    //OLD    var view = new this.view(viewService);
 	        // do something with the view
+	        try {
+	        	this.loadedView = this.viewArray[id];
+				console.log('SKIN: viewControllerBase loadedView:');
+	        	console.log(this.loadedView);
+	        }
+	        catch(e) {
+	        	console.log('SKIN: viewControllerBase loadView(id) error:');
+	        	console.log(e);
+	        }
 	    },
 	    subscribeViewService: function() {
 			console.log('SKIN: viewControllerBase subscribeViewService() called');  	    	
@@ -117,10 +126,11 @@ define(function () {
 	        	}
 	        }
 	    },	    
-        renderView: function (bodyDom) {
-			console.log('SKIN: viewControllerBase renderView(bodyDom) called');
-            bodyDom.prepend('<h2>ViewController ' + this.id + ' says "' +
-                      this.viewService.getTitle() + '"</h2>');
+        renderView: function (elementId) {
+			console.log('SKIN: viewControllerBase renderView(elementId) called');
+            // OLD bodyDom.prepend('<h2>ViewController ' + this.id + ' says "' +
+            // OLD          this.viewService.getTitle() + '"</h2>');
+			this.loadedView.renderView(elementId); // NOTE: Use the loaded View !!
         }
     };
     return viewControllerBase;

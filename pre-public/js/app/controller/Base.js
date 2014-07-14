@@ -75,9 +75,9 @@ define(function () {
 			console.log('SKIN: controllerBase loadView(id) called');			
 			this.viewController.loadView(id);
 		},
-        renderView: function (bodyDom) {
-        	console.log('SKIN: controllerBase renderView(bodyDom) called');     	
-			this.viewController.renderView(bodyDom);
+        renderView: function (elementId) {
+        	console.log('SKIN: controllerBase renderView(elementId) called');     	
+			this.viewController.renderView(elementId);
         },
         subscribeViewService: function() {
         	console.log('SKIN: controllerBase subscribeViewService() called');

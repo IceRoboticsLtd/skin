@@ -185,11 +185,13 @@
         </script>
     </head>
     <body onload="loadScript('js/lib/require.js', true, null, doNext)">
-        <div id="appLoadingIndicator">
-            <p>LOADING</p>
-            <div id="first"></div>
-            <div id="second"></div>
-            <div id="third"></div>
+        <div id="page">
+            <div id="appLoadingIndicator">
+                <p>LOADING</p>
+                <div id="first"></div>
+                <div id="second"></div>
+                <div id="third"></div>
+            </div>
         </div>
     </body>
 </html>
