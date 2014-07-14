@@ -84,7 +84,6 @@
                     background-image: url('img/bg/noise.png') !important;
                     background-color: rgb(217, 219, 222);
                 }
-         
                 #loadingIndicator {
                     position: absolute;
                     top: 50%;
@@ -93,28 +92,24 @@
                     width: 100%;
                     height: 30px;
                 }
-                
                 #first {
                     -webkit-animation-name: first;
                     -webkit-animation-duration: 0.5s;
                     -webkit-animation-iteration-count: infinite;
                     -webkit-animation-direction: linear;            
                 }
-
                 #second {
                     -webkit-animation-name: second;
                     -webkit-animation-duration: 0.5s;
                     -webkit-animation-iteration-count: infinite;
                     -webkit-animation-direction: linear;            
                 }
-
                 #third {
                     -webkit-animation-name: third;
                     -webkit-animation-duration: 0.5s;
                     -webkit-animation-iteration-count: infinite;
                     -webkit-animation-direction: linear;            
                 }
-                
                 #loadingIndicator div {
                     background-color: #FFFFFF;
                     display: inline-block;
@@ -124,14 +119,12 @@
                     width: 30px;
                     opacity: 0.8;
                 }
-
                 #loadingIndicator p {
                     color: #FFFFFF;
                     text-align: center;
                     width: 100%;
                     margin-bottom: 20px;
                 }    
-                
                 @-webkit-keyframes first{
                     0% {
                         opacity: 0.8
@@ -149,7 +142,6 @@
                         opacity: 0.8
                     }
                 }
-                
                 @-webkit-keyframes second{
                     0% {
                         opacity: 0.8
@@ -167,7 +159,6 @@
                         opacity: 0.4
                     }
                 }
-
                 @-webkit-keyframes third{
                     0% {
                         opacity: 0.4
