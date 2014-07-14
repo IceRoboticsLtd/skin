@@ -1,5 +1,6 @@
 /*
  * ServiceBus
+ * See also https://github.com/postaljs/postal.js/wiki/API
  */
 define(['./Base'], function (Base) {
     console.log('SKIN: serviceBus called');
