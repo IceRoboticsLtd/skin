@@ -5,8 +5,7 @@ define(function () {
     console.log('SKIN: appServiceBase called');
     function appServiceBase(id) {
         this.id = id;
-        this.myProperty = {};
-        this.serviceBus = {};               
+        this.myProperty = {};               
     };
     appServiceBase.prototype = {
 		setServiceBus: function (serviceBus) {
@@ -48,18 +47,24 @@ define(function () {
                     var topic = topicArray[topic];
                     var callback = function(data, envelope){
                         // empty for now
+                        console.log('SKIN: appServiceBase data received:');
                         console.log(data);
+                        console.log('SKIN: appServiceBase envelope received:');
+                        console.log(envelope);
                     };
                     // Subscribe to the channel+topic for each topic, 
                     // with callback for processing of received data            
                     var options = { channel: channel, topic: topic, callback: callback};
                     console.log('SKIN: appServiceBase options:');
                     console.log(options);
-                    var subscription = this.serviceBus.subscribe(options); // NOTE: For some reason this.serviceBus is undefined
+                    var subscription = this.serviceBus.subscribe(options);
+                    // NOTE: to unsubscribe
+                    // subscription.unsubscribe();
+
                     // Add active subscriptions to subscription array
                     subscriptionArray.push(subscription);
                 }
-            });
+            }, this); // provide 'this' as a second argument to have access to it
 		}
     };
     return appServiceBase;

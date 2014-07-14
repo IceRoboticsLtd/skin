@@ -6,8 +6,7 @@ define(function () {
     function viewServiceBase(id) {
         this.id = id;
         this.title = 'viewService default title';
-        this.myProperty = {};
-        this.serviceBus = {};                
+        this.myProperty = {};                
     };
     viewServiceBase.prototype = {
 		setServiceBus: function (serviceBus) {
@@ -49,18 +48,24 @@ define(function () {
                     var topic = topicArray[topic];
                     var callback = function(data, envelope){
                         // empty for now
+                        console.log('SKIN: viewServiceBase data received:');
                         console.log(data);
+                        console.log('SKIN: viewServiceBase envelope received:');
+                        console.log(envelope);
                     };
                     // Subscribe to the channel+topic for each topic, 
                     // with callback for processing of received data            
                     var options = { channel: channel, topic: topic, callback: callback};
                     console.log('SKIN: viewServiceBase options:');
                     console.log(options);
-                    var subscription = this.serviceBus.subscribe(options); // NOTE: For some reason this.serviceBus is undefined
+                    var subscription = this.serviceBus.subscribe(options);
+                    // NOTE: to unsubscribe
+                    // subscription.unsubscribe();
+
                     // Add active subscriptions to subscription array
                     subscriptionArray.push(subscription);
                 }
-            });
+            }, this); // provide 'this' as a second argument to have access to it
         },
         getTitle: function () {
             console.log('SKIN: viewServiceBase getTitle() called');            
