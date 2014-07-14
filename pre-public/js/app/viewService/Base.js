@@ -59,6 +59,8 @@ define(function () {
                     console.log('SKIN: viewServiceBase options:');
                     console.log(options);
                     var subscription = this.serviceBus.subscribe(options);
+                    console.log('SKIN: viewServiceBase subscription:');
+                    console.log(subscription);                    
                     // NOTE: to unsubscribe
                     // subscription.unsubscribe();
 
