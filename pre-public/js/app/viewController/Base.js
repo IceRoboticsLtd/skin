@@ -96,12 +96,7 @@ define(function () {
 			this.config = config;
 		},
     	loadView: function (id) {
-			console.log('SKIN: viewControllerBase loadView(id) called');    		
-	        // Get the viewService from the view array
-	    //OLD    var viewService = this.viewService.find(id);
-	        // Get a new view
-	    //OLD    var view = new this.view(viewService);
-	        // do something with the view
+			console.log('SKIN: viewControllerBase loadView(id) called');
 	        try {
 	        	this.loadedView = this.viewArray[id];
 				console.log('SKIN: viewControllerBase loadedView:');
@@ -128,8 +123,6 @@ define(function () {
 	    },	    
         renderView: function (elementId) {
 			console.log('SKIN: viewControllerBase renderView(elementId) called');
-            // OLD bodyDom.prepend('<h2>ViewController ' + this.id + ' says "' +
-            // OLD          this.viewService.getTitle() + '"</h2>');
 			this.loadedView.renderView(elementId); // NOTE: Use the loaded View !!
         }
     };
