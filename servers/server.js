@@ -1,3 +1,6 @@
+/*
+ * SERVER - The Server
+ */ 
 var express = require('express'),
 	device = require('../lib/device.js'),
 	redirect = require('express-redirect'),
@@ -245,11 +248,32 @@ app.all('*', function(req, res, next){
   next();
 });
 
+/********************** HARDCODED - MAKE DYNAMIC *************
+ *  The app name requested should follow from the URL, 
+ *  like http://localhost:3000/?app=store
+ */
+var app_name = 'store'; // FOR DEMO PURPOSES ONLY !!!
+/*********************** END OF HARDCODED ********************/
+
 if(typeof configs.title === 'undefined'){
 	var title = 'Untitled';
 }
 else {
 	var title = configs.title;
+}
+
+if(typeof configs.css_file_location === 'undefined'){
+	var css_file_location = 'css/style.css';
+}
+else {
+	var css_file_location = configs.css_file_location;
+	// replace the css file name by the app name, if provided
+	if(typeof app_name === 'undefined'){
+		// continue without replacement
+	}
+	else {
+		css_file_location = css_file_location.replace('style', app_name);
+	}
 }
 
 if(typeof configs.access_control_allow_origin === 'undefined'){
@@ -275,7 +299,7 @@ else {
 
 // routing to pages
 app.get('/', function(req, res) {
-    res.render('page', { title: title, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, layout: false });
+    res.render('page', { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, layout: false });
 });
 
 var app_server = app.listen(app_port, function() {

@@ -14,7 +14,7 @@
             <link rel="shortcut icon" href="favicon.ico" />
         <![endif]-->
         <!--CSS-->
-        <style type="text/css" src="css/style.css"></style>        
+        <link rel="stylesheet" type="text/css" media="all" href="<%= css_file_location %>">
         <script>
         // See http://www.ejeliot.com/blog/109
             function loadScript(src, async, elem, callback){
