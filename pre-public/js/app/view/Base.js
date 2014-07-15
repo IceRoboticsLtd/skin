@@ -18,7 +18,6 @@ define(function () {
                 if(key == searchKey){
                     keyFound = true;
                     value = this.keyValuePairs[key];
-
                 }
             }
             if(keyFound) {
@@ -62,7 +61,7 @@ define(function () {
 	//		return ourData.replace(/<%=\s+(.*?)\s+%>/g, function (m,m1) {
 	//			return instance.viewService[m1];
 	//		});
-            try {  // FOR TEST ONLY !!!
+            try { 
                 this.view = this.getValue(key);
                 console.log('SKIN: ViewBase this.view:');
                 console.log(this.view);
@@ -81,6 +80,11 @@ define(function () {
 			// This view renders to the element with the id provided.
 			try {
                 document.getElementById(elementId).innerHTML = this.getView('htmlSource');
+                // Add the view's script element
+                var scriptTag = document.createElement('script');
+                scriptTag.type = "text/javascript";
+                scriptTag.src = this.getValue('scriptSource');
+                document.getElementsByTagName('head')[0].appendChild(scriptTag);
             }
             catch(e) {
                 console.log('SKIN: ViewBase renderView(elementId) error:');

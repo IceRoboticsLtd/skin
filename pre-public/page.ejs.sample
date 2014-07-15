@@ -65,8 +65,8 @@
                     //can just ask for 'app/main' here instead
                     //of 'js/app/main'
                     require(['app/main'], function (main) {
-                         console.log('SKIN: page: main required');
-                         console.log(main);
+                        console.log('SKIN: page: main required');
+                        console.log(main);
                     });
                 });
             };
