@@ -1,1 +1,59 @@
-$(document).ready(function(){$(".options a").on("click", function(e) {e.preventDefault();if($(this).hasClass("active")) {return;}$(".options a").removeClass("active");$(this).addClass("active");var clickid = $(this).attr("id");$("#listdisplay").fadeOut(240, function(){if(clickid == "thumbnails-list"){console.log("SKIN: thumbnails view");$(this).addClass("thumbview");}else {console.log("SKIN: list view");$(this).removeClass("thumbview");}$("#listdisplay").fadeIn(200);});});});
+/*
+ * MyDefaultStore
+ */
+$(document).ready(function() {
+	$(".options a").on("click", function(e) {
+		e.preventDefault();
+		if($(this).hasClass("active")) {
+			return;
+		}
+		$(".options a").removeClass("active");
+		$(this).addClass("active");
+		var clickid = $(this).attr("id");
+		$("#listdisplay").fadeOut(240, function() {
+			if(clickid == "thumbnails-list"){
+				console.log("SKIN: thumbnails view");
+				$(this).addClass("thumbview");
+			}
+			else {
+				console.log("SKIN: list view");
+				$(this).removeClass("thumbview");
+			}
+			$("#listdisplay").fadeIn(200);
+		});
+	});
+	// FrameWarp - Main
+	// See also http://tutorialize.com/2012/07/framewarp-jquery-plugin
+	var body = $('body'),
+		win = $(window),
+		popup, popupBG;
+
+	var frameCache = {};
+	var frameCacheDiv = $('<div class="frameCacheDiv">').appendTo('body');
+	var currentIframe;
+
+	$.fn.frameWarp = function(settings) {
+		console.log('SKIN: MyDefaultStore frameWarp(settings) called');
+		// to do
+	};
+	// FrameWarp - Helper Functions
+	function hide(){
+		console.log('SKIN: MyDefaultStore hide() called');
+		// to do
+	};
+	function setUpAPI(iframe, settings) {
+		console.log('SKIN: MyDefaultStore setUpAPI(iframe, settings) called');
+		// to do
+	};
+	function sameOrigin(url) {
+		console.log('SKIN: MyDefaultStore sameOrigin(url) called');
+		// to do
+	};
+	function getOrigin(url) {
+		console.log('SKIN: MyDefaultStore getOrigin(url) called');
+		// to do
+	};
+
+
+
+});
