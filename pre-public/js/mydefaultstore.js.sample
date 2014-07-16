@@ -37,23 +37,41 @@ $(document).ready(function() {
 		// to do
 	};
 	// FrameWarp - Helper Functions
+	// Hide: remove the popup and dark background from the page.
 	function hide(){
 		console.log('SKIN: MyDefaultStore hide() called');
-		// to do
+		if(currentIframe) {
+			currentIframe.hide();
+			currentIframe = null;
+		}
+		popupBG.remove();
+		popup.remove();
 	};
+	// SetUpAPI: make two API methods available to the frame, 
+	// if the page is from the same domain.
 	function setUpAPI(iframe, settings) {
 		console.log('SKIN: MyDefaultStore setUpAPI(iframe, settings) called');
-		// to do
+		if(sameOrigin(settings.url)) {
+			// Exposing a minimal API to the iframe
+			iframe[0].contentWindow.frameWarp = {
+				hide: hide,
+				sendMessage: function(param) {
+					return settings.onMessage(param);
+				}
+			};
+		}
 	};
+	// SameOrigin: determine whether the page is from the same domain.
 	function sameOrigin(url) {
 		console.log('SKIN: MyDefaultStore sameOrigin(url) called');
-		// to do
+		return (getOrigin(url) == getOrigin(location.href));
 	};
+	// GetOrigin: generate an origin string of the type: https://www.google.com
+	// This includes the protocol and host.
 	function getOrigin(url) {
 		console.log('SKIN: MyDefaultStore getOrigin(url) called');
-		// to do
+		var a = document.createElement('a');
+		a.href = url;
+		return a.protocol+'//'+a.hostname;
 	};
-
-
-
 });
