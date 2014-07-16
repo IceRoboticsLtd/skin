@@ -1,7 +1,9 @@
 /*
  * MyDefaultStore
  */
+/////////////////////////// ON DOCUMENT READY /////////////////////////////
 $(document).ready(function() {
+	console.log('SKIN: MyDefaultStore document ready');
 	$(".options a").on("click", function(e) {
 		e.preventDefault();
 		if($(this).hasClass("active")) {
@@ -22,81 +24,35 @@ $(document).ready(function() {
 			$("#listdisplay").fadeIn(200);
 		});
 	});
+});
 
+$(function(){
 
+	// If no url property is passed, the
+	// href attribute will be used
+
+	$('#app-a').frameWarp();
+	$('#app-b').frameWarp();
+	$('#app-calculator').frameWarp();
+	$('#app-d').frameWarp();
+
+	// $('#b1').frameWarp();
+
+	// $('#b2').frameWarp({
+	// 	onMessage: function(msg){
+	// 		$('#messages').append('<b>Message Received:</b> '+ msg+'<br />');
+	// 	}
+	// });
+
+	// // Cache is enabled by default
+	// $('#b3').frameWarp({
+	// 	url : 'http://www.cnn.com/'
+	// });
+
+	// // Disable caching
+	// $('#b4').frameWarp({
+	// 	url : 'http://www.cnn.com/',
+	// 	cache:false
+	// });
 
 });
-/*
- * FrameWarp
- * See also http://tutorialize.com/2012/07/framewarp-jquery-plugin
- */
-(function($) {
-	// FrameWarp - Main
-	var body = $('body'),
-		win = $(window),
-		popup, popupBG;
-
-	var frameCache = {};
-	var frameCacheDiv = $('<div class="frameCacheDiv">').appendTo('body');
-	var currentIframe;
-
-	$.fn.frameWarp = function(settings) {
-		console.log('SKIN: MyDefaultStore frameWarp(settings) called');
-		// Supply default settings
-		settings = $.extend({
-			cache: true,
-			url: '',
-			width: 600,
-			height: 500,
-			closeOnBackgroundClick: true,
-			onMessage: function(){},
-			onShow: function(){}
-		},settings);
-
-		this.on('click', function(e){
-			console.log('SKIN: MyDefaultStore frameWarp(settings) clicked');
-			e.preventDefault();
-			// to do
-
-		});
-		// to do
-	};
-	// FrameWarp - Helper Functions
-	// Hide: remove the popup and dark background from the page.
-	function hide(){
-		console.log('SKIN: MyDefaultStore hide() called');
-		if(currentIframe) {
-			currentIframe.hide();
-			currentIframe = null;
-		}
-		popupBG.remove();
-		popup.remove();
-	};
-	// SetUpAPI: make two API methods available to the frame, 
-	// if the page is from the same domain.
-	function setUpAPI(iframe, settings) {
-		console.log('SKIN: MyDefaultStore setUpAPI(iframe, settings) called');
-		if(sameOrigin(settings.url)) {
-			// Exposing a minimal API to the iframe
-			iframe[0].contentWindow.frameWarp = {
-				hide: hide,
-				sendMessage: function(param) {
-					return settings.onMessage(param);
-				}
-			};
-		}
-	};
-	// SameOrigin: determine whether the page is from the same domain.
-	function sameOrigin(url) {
-		console.log('SKIN: MyDefaultStore sameOrigin(url) called');
-		return (getOrigin(url) == getOrigin(location.href));
-	};
-	// GetOrigin: generate an origin string of the type: https://www.google.com
-	// This includes the protocol and host.
-	function getOrigin(url) {
-		console.log('SKIN: MyDefaultStore getOrigin(url) called');
-		var a = document.createElement('a');
-		a.href = url;
-		return a.protocol+'//'+a.hostname;
-	};
-})
