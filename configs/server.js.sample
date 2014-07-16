@@ -27,7 +27,9 @@ module.exports.configs = {
 		'http://yourhostname.com': true,
 		'localhost': true,
 		'localhost:3000': true,
-		'localhost:3001': true
+		'localhost:3001': true,
+		'localhost:4000': true,
+		'localhost:4001': true
 	},
 	access_control_allow_origin : '*', // put the allowed page requesters here, * means anyone
 	title : 'Your Company', // put the page title here
