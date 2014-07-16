@@ -22,37 +22,10 @@ define(function (require) {
         jquery = require('jquery'),
         bootstrap = require('bootstrap'), // bootstrap extends jquery
         expect = require('expect'),
-        mocha = require('mocha');
-        //conduitjs = require('conduit'), // depends on bootstrap, expect, and mocha
-        //postal = require('postal'),
-        //postaldiags = require('postaldiags');
+        mocha = require('mocha'),
+        jquerypp = require('jquerypp.custom'),
+        framewarp = require('framewarp');
 
-    // Backbone check
-    console.log('SKIN: backbone:');
-    console.log(backbone);
-    // JQuery check
-    console.log('SKIN: jquery:');
-    console.log(jquery); 
-    jquery.VERSION = jquery.fn.jquery;
-    // Bootstrap check
-    console.log('SKIN: bootstrap:');
-    console.log(bootstrap);
-    // Expect check
-    console.log('SKIN: expect:');
-    console.log(expect);
-    expect.VERSION = expect.version;
-    // Mocha check
-    console.log('SKIN: mocha:');
-    console.log(mocha);
-    // ConduitJS check
-//    console.log('conduitjs:');
-//    console.log(conduitjs);
-    // Postal check
-//    console.log('postal');
-//    console.log(postal);
-    // PostalDiags check
-//    console.log('postaldiags:');
-//    console.log(postaldiags);
     /*
      * STEP 1: Shared modules
      */
@@ -67,8 +40,6 @@ define(function (require) {
     // Set serviceBus
     console.log('SKIN: serviceBus:');
     console.log(serviceBus);
-    // assign postal to the serviceBus's serviceBus property
-//    serviceBus.serviceBus = postal; 
     // The same serviceBus is used by both the ViewController and the AppController
     controller.setServiceBus(serviceBus);
     /*
@@ -111,29 +82,11 @@ define(function (require) {
     controller.subscribeAppService();
     controller.subscribeViewService();
 
-    //A fabricated API to show interaction of
-    //common and specific pieces. 
-
     // DOM ready  
     $(function () {
         console.log('SKIN: controller.loadView(0) called');
         controller.loadView(0); // MAKE DYNAMIC, CHOOSE id
         console.log('SKIN: controller.renderView("page") called'); // PROVIDE A PROPER elementId
         controller.renderView('page');
-        /* OLD
-        controller.renderView(lib.getBody());
-        //Display backbone and underscore versions
-        $('body')
-            .append('<div>backbone version: ' + backbone.VERSION + '</div>')
-            .append('<div>underscore version: ' + underscore.VERSION + '</div>')
-            .append('<div>lodash version: ' + lodash.VERSION + '</div>')
-            .append('<div>jquery version: ' + jquery.VERSION + '</div>')
-            .append('<div>expect version: ' + expect.VERSION + '</div>')
-            .append('<div>mocha version: ' + mocha.VERSION + '</div>') 
-        //    .append('<div>conduitjs version: ' + conduitjs.VERSION + '</div>')
-        //    .append('<div>postal version: ' + postal.VERSION + '</div>')              
-        //    .append('<div>postaldiags version: ' + postaldiags.VERSION + '</div>')                        
-		//	.append('<div>Example 1 - The World\'s Simplest Subscription<div class="results" id="example1"></div></div>');
-        */
     });
 });
