@@ -22,8 +22,16 @@ $(document).ready(function() {
 			$("#listdisplay").fadeIn(200);
 		});
 	});
+
+
+
+});
+/*
+ * FrameWarp
+ * See also http://tutorialize.com/2012/07/framewarp-jquery-plugin
+ */
+(function($) {
 	// FrameWarp - Main
-	// See also http://tutorialize.com/2012/07/framewarp-jquery-plugin
 	var body = $('body'),
 		win = $(window),
 		popup, popupBG;
@@ -34,6 +42,23 @@ $(document).ready(function() {
 
 	$.fn.frameWarp = function(settings) {
 		console.log('SKIN: MyDefaultStore frameWarp(settings) called');
+		// Supply default settings
+		settings = $.extend({
+			cache: true,
+			url: '',
+			width: 600,
+			height: 500,
+			closeOnBackgroundClick: true,
+			onMessage: function(){},
+			onShow: function(){}
+		},settings);
+
+		this.on('click', function(e){
+			console.log('SKIN: MyDefaultStore frameWarp(settings) clicked');
+			e.preventDefault();
+			// to do
+
+		});
 		// to do
 	};
 	// FrameWarp - Helper Functions
@@ -74,4 +99,4 @@ $(document).ready(function() {
 		a.href = url;
 		return a.protocol+'//'+a.hostname;
 	};
-});
+})
