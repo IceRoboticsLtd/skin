@@ -74,6 +74,8 @@ define(function () {
 						this.appArray[i] = newApp;
 						console.log('SKIN: appControllerBase appArray [' + i + ']');
 						console.log(this.appArray[i]);
+						// Increase i by 1
+						i++;
 					}
 					console.log('SKIN: appControllerBase appArray');
 					console.log(this.appArray);			

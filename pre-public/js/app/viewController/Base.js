@@ -74,6 +74,8 @@ define(function () {
 						this.viewArray[i] = newView;
 						console.log('SKIN: viewControllerBase viewArray [' + i + ']');
 						console.log(this.viewArray[i]);
+						// Increase i by 1
+						i++;
 					}
 					console.log('SKIN: viewControllerBase viewArray');
 					console.log(this.viewArray);			
