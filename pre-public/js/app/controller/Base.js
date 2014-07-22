@@ -7,14 +7,14 @@ define(function () {
         this.id = id;
     };
     controllerBase.prototype = {
-    	setStore: function (store) {
-			console.log('SKIN: controllerBase setStore(store) called');
-			this.store = store;
+    	setStoreName: function (storeName) {
+			console.log('SKIN: controllerBase setStoreName(storeName) called');
+			this.storeName = storeName;
 		},
 		setAppController: function (appController) {
 			console.log('SKIN: controllerBase setAppController(appController) called');
 			this.appController = appController;
-			this.appController.setStore(this.store);
+			this.appController.setStoreName(this.storeName);
 			this.appController.setConfig(this.config);
             this.appController.setServiceBus(this.serviceBus);		
 		},
@@ -52,7 +52,7 @@ define(function () {
 		setViewController: function (viewController) {
 			console.log('SKIN: controllerBase setViewController(viewController) called');	
 			this.viewController = viewController;
-			this.viewController.setStore(this.store);			
+			this.viewController.setStoreName(this.storeName);			
 			this.viewController.setConfig(this.config);
 			this.viewController.setServiceBus(this.serviceBus);
 		},

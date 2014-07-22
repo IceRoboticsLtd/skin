@@ -17,9 +17,9 @@ define(function () {
 			console.log('SKIN: viewControllerBase setServiceBus(serviceBus) called');		
 			this.serviceBus = serviceBus;			
 		},
-		setStore: function (store) {
-			console.log('SKIN: viewControllerBase setStore(store) called');
-			this.store = store;
+		setStoreName: function (storeName) {
+			console.log('SKIN: viewControllerBase setStoreName(storeName) called');
+			this.storeName = storeName;
 		},		
 		setView: function (view) {
 			console.log('SKIN: viewControllerBase setView(view) called');			
@@ -30,19 +30,19 @@ define(function () {
 			var configs = this.config.getConfigs();
 			var store_list = configs.store_list;
 			for (key in store_list) {
-				if(key == this.store) {
-					console.log('SKIN: viewControllerBase store ' + this.store + ' found in app_list');
+				if(key == this.storeName) {
+					console.log('SKIN: viewControllerBase storeName ' + this.storeName + ' found in app_list');
 					store_not_found = false;
 					var store_configs = store_list[key];
 					console.log('SKIN: viewControllerBase store_configs')
 					console.log(store_configs);
 					// continue for views ....
 					if(typeof store_configs.views === 'undefined') {
-						console.log('SKIN: viewControllerBase no views found for store ' + this.store);
+						console.log('SKIN: viewControllerBase no views found for storeName ' + this.storeName);
 						var views = {};
 					}
 					else {
-						console.log('SKIN: viewControllerBase views found for store ' + this.store);
+						console.log('SKIN: viewControllerBase views found for storeName ' + this.storeName);
 						console.log(store_configs.views);
 						var views = store_configs.views;
 					}
@@ -82,7 +82,7 @@ define(function () {
 				}
 			}// eof for
 			if(store_not_found) {
-				console.log('SKIN: viewControllerBase store ' + this.store + 'not found in store_list');
+				console.log('SKIN: viewControllerBase storeName ' + this.storeName + 'not found in store_list');
 			}
 		},	
 		setViewService: function (viewService) {
