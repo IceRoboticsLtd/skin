@@ -17,9 +17,9 @@ define(function () {
 			console.log('SKIN: appControllerBase setServiceBus(serviceBus) called');		
 			this.serviceBus = serviceBus;
 		},
-		setStore: function (store) {
-			console.log('SKIN: appControllerBase setStore(store) called');
-			this.store = store;
+		setStoreName: function (storeName) {
+			console.log('SKIN: appControllerBase setStoreName(storeName) called');
+			this.storeName = storeName;
 		},
 		setApp: function (app) {
 			console.log('SKIN: appControllerBase setApp(app) called');		
@@ -30,19 +30,19 @@ define(function () {
 			var configs = this.config.getConfigs();
 			var store_list = configs.store_list;
 			for (key in store_list) {
-				if(key == this.store) {
-					console.log('SKIN: appControllerBase store ' + this.store + ' found in store_list');
+				if(key == this.storeName) {
+					console.log('SKIN: appControllerBase storeName ' + this.storeName + ' found in store_list');
 					store_not_found = false;
 					var store_configs = store_list[key];
 					console.log('SKIN: appControllerBase store_configs')
 					console.log(store_configs);
 					// continue for apps ....
 					if(typeof store_configs.apps === 'undefined') {
-						console.log('SKIN: appControllerBase no apps found for store ' + this.store);
+						console.log('SKIN: appControllerBase no apps found for storeName ' + this.storeName);
 						var apps = {};
 					}
 					else {
-						console.log('SKIN: appControllerBase apps found for store ' + this.store);
+						console.log('SKIN: appControllerBase apps found for storeName ' + this.storeName);
 						console.log(store_configs.apps);
 						var apps = store_configs.apps;
 					}
@@ -82,7 +82,7 @@ define(function () {
 				}
 			}// eof for
 			if(store_not_found) {
-				console.log('SKIN: appControllerBase store ' + this.store + 'not found in store_list');
+				console.log('SKIN: appControllerBase storeName ' + this.storeName + 'not found in store_list');
 			}
 		},	
 		setAppService: function (appService) {
@@ -123,8 +123,8 @@ define(function () {
 	    },	    
         renderView: function (bodyDom) {
 			console.log('SKIN: appControllerBase renderView(bodyDom) called');    	
-            bodyDom.prepend('<h2>AppController ' + this.id + ' says "' +
-                      this.app.getTitle() + '"</h2>');
+        // OLD    bodyDom.prepend('<h2>AppController ' + this.id + ' says "' +
+        // OLD              this.app.getTitle() + '"</h2>');
         }
     };
     return appControllerBase;
