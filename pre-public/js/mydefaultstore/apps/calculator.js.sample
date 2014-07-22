@@ -1,0 +1,11 @@
+/*
+ * Calculator
+ */
+define(['./Base'], function (Base) {
+    console.log('SKIN: config called');
+    var configs = {
+    	// to do
+	};
+    var _Calculator = new Base(configs);
+    return _Calculator;
+});    
