@@ -65,8 +65,20 @@
                     //can just ask for 'app/main' here instead
                     //of 'js/app/main'
                     require(['app/main'], function (main) {
-                        console.log('SKIN: page: main required');
-                        console.log(main);
+                         console.log('SKIN: page: main required');
+                         console.log(main);
+                         // Set store (e.g. 'mydefaultstore')
+                         console.log('SKIN: page: main.setStoreName("<%= app_name %>")');
+                         main.setStoreName('<%= app_name %>');
+                         // Set viewIndex (e.g. 0)
+                         console.log('SKIN: page: main.setViewIndex(<%= view_index %>)');
+                         main.setViewIndex(<%= view_index %>);
+                         // Set elementId (e.g. 'page')
+                         console.log('SKIN: page: main.setElementId("page")');
+                         main.setElementId('page');
+                         // Call ready()
+                         console.log('SKIN: page: main.ready()');
+                         main.ready();
                     });
                 });
             };
