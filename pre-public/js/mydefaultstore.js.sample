@@ -34,7 +34,7 @@ $(function(){
 	$('#app-a').frameWarp();
 	$('#app-b').frameWarp();
 	$('#app-calculator').frameWarp();
-	$('#app-d').frameWarp();
+	$('#app-slider').frameWarp();
 
 	// $('#b1').frameWarp();
 
