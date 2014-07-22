@@ -1,7 +1,0 @@
-# First clone the following repository into this directory, named 'postaljs', like so:
-
-git clone https://github.com/postaljs/postal.js.git postaljs
-
-# Next time, when in need of an update, pull (= combines fetch and merge) the same repository from within the 'postaljs' directory simply like so:
-
-git pull
