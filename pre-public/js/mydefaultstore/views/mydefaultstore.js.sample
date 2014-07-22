@@ -1,0 +1,58 @@
+/*
+ * MyDefaultStore
+ */
+/////////////////////////// ON DOCUMENT READY /////////////////////////////
+$(document).ready(function() {
+	console.log('SKIN: MyDefaultStore document ready');
+	$(".options a").on("click", function(e) {
+		e.preventDefault();
+		if($(this).hasClass("active")) {
+			return;
+		}
+		$(".options a").removeClass("active");
+		$(this).addClass("active");
+		var clickid = $(this).attr("id");
+		$("#listdisplay").fadeOut(240, function() {
+			if(clickid == "thumbnails-list"){
+				console.log("SKIN: thumbnails view");
+				$(this).addClass("thumbview");
+			}
+			else {
+				console.log("SKIN: list view");
+				$(this).removeClass("thumbview");
+			}
+			$("#listdisplay").fadeIn(200);
+		});
+	});
+});
+
+$(function(){
+
+	// If no url property is passed, the
+	// href attribute will be used
+
+	$('#app-a').frameWarp();
+	$('#app-b').frameWarp();
+	$('#app-calculator').frameWarp();
+	$('#app-slider').frameWarp();
+
+	// $('#b1').frameWarp();
+
+	// $('#b2').frameWarp({
+	// 	onMessage: function(msg){
+	// 		$('#messages').append('<b>Message Received:</b> '+ msg+'<br />');
+	// 	}
+	// });
+
+	// // Cache is enabled by default
+	// $('#b3').frameWarp({
+	// 	url : 'http://www.cnn.com/'
+	// });
+
+	// // Disable caching
+	// $('#b4').frameWarp({
+	// 	url : 'http://www.cnn.com/',
+	// 	cache:false
+	// });
+
+});
