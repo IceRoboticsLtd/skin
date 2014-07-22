@@ -26,7 +26,7 @@ var services = require('../routes/services'); // it seems that we have to start 
  * See: https://www.exratione.com/2011/07/running-a-nodejs-server-as-a-service-using-forever/
  */
 var server = express();
-//Port
+// Port
 if(typeof configs.server_port === 'undefined'){
 	var server_port = process.env.PORT || 10080;
 }
@@ -80,7 +80,6 @@ var managePreparationForShutdown = function(callback) {
 	callback();
 };
 
-
 /*
  * APP - The Application
  */
@@ -124,6 +123,13 @@ if(typeof configs.action_list === 'undefined'){
 else {
 	var action_list = configs.action_list;
 }
+// Model List
+if(typeof configs.model_list === 'undefined'){
+	var model_list = {};
+}
+else {
+	var model_list = configs.model_list;
+}
 // Format List
 if(typeof configs.format_list === 'undefined'){
 	var format_list = {};
@@ -136,7 +142,7 @@ api.all('*', function(req, res, next){
   if (!req.get('Origin')) return next();
   // use "*" here to accept any origin
   res.set('Access-Control-Allow-Origin', '*');  // Accepts requests coming from anyone, replace '*' by configs.allowedHost to restrict it
-  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST');
+  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   res.set('X-Powered-By', 'Express');
   res.set('Content-Type', 'application/json; charset=utf8'); 
@@ -164,13 +170,10 @@ api.post('/login', function(req, res){
  * echo %NODE_ENV% 
  */
 if('development' == app.settings.env){
-
 	console.log(server_prefix + " - Using development configurations");
-
     app.set('view engine', 'ejs');
     app.set('view options', { layout: true });
     app.set('views', __dirname + '/../public');
-    
 	/*
 	 * bodyParser() is the composition of three middlewares:
 	 * - json: parses application/json request bodies
@@ -178,21 +181,16 @@ if('development' == app.settings.env){
 	 * - multipart: parses multipart/form-data request bodies
 	 */
     app.use(bodyParser()); // pull information from html in POST
-
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
-    
     app.enableDeviceHelpers();
     app.enableViewRouting();
-
     app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
-    
     app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
 };
-
 /*
  * APP PRODUCTION
  *
@@ -208,13 +206,10 @@ if('development' == app.settings.env){
  * echo %NODE_ENV% 
  */
 if('production' == app.settings.env){
-
 	console.log(server_prefix + " - Using production configurations");
-
     app.set('view engine', 'ejs');
     app.set('view options', { layout: true });
     app.set('views', __dirname + '/../public');
-    
 	/*
 	 * bodyParser() is the composition of three middlewares:
 	 * - json: parses application/json request bodies
@@ -222,18 +217,14 @@ if('production' == app.settings.env){
 	 * - multipart: parses multipart/form-data request bodies
 	 */
     app.use(bodyParser()); // pull information from html in POST
-
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
-    
     app.enableDeviceHelpers();
     app.enableViewRouting();
-
     app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
-    
     app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
 };
 
@@ -248,32 +239,11 @@ app.all('*', function(req, res, next){
   next();
 });
 
-/********************** HARDCODED - MAKE DYNAMIC *************
- *  The app name requested should follow from the URL, 
- *  like http://localhost:3000/?app=store
- */
-var app_name = 'store'; // FOR DEMO PURPOSES ONLY !!!
-/*********************** END OF HARDCODED ********************/
-
 if(typeof configs.title === 'undefined'){
 	var title = 'Untitled';
 }
 else {
 	var title = configs.title;
-}
-
-if(typeof configs.css_file_location === 'undefined'){
-	var css_file_location = 'css/style.css';
-}
-else {
-	var css_file_location = configs.css_file_location;
-	// replace the css file name by the app name, if provided
-	if(typeof app_name === 'undefined'){
-		// continue without replacement
-	}
-	else {
-		css_file_location = css_file_location.replace('style', app_name);
-	}
 }
 
 if(typeof configs.access_control_allow_origin === 'undefined'){
@@ -296,10 +266,76 @@ if(typeof configs.host === 'undefined'){
 else {
 	var host = configs.host;
 }
-
 // routing to pages
 app.get('/', function(req, res) {
-    res.render('page', { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, layout: false });
+	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
+	var app = 'page'; // default
+	var app_name = ''; // default
+	// Update app_name variable here with value from 'app' key (e.g. app=mydefaultstore) sets app to 'mydefaultstore' 
+	if(req.query.app) {
+		app_name = req.query.app;
+		var app_not_found = true; // default to true
+		// Lookup app in app list, if found set not_found to false
+		for (key in app_list) {
+			if(key == app_name) {
+				app_name = key;
+				app_not_found = false;
+				break;
+			}
+		}//eof for
+		if(app_not_found) {
+			console.log(server_prefix + " - App requested, but not found: " + app_name);
+			app = 'not_found';
+		}
+	}
+	console.log(server_prefix + " - App requested: " + app_name);
+	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?view=0')
+	var view = 0; // default
+	var views = 'views';
+	var view_index = 0; // default
+	// Update view_index variable here with value from 'view' key (e.g. view=0) sets view to 0 
+	if(req.query.view) {
+		view_index = req.query.view;
+		var view_not_found = true; // default to true
+		// Lookup view in app list, if found set not_found to false
+		for (key in app_list) {
+			if(key == app_name) {
+				app_name = key;
+				app_value = app_list[key];
+				for(key in app_value) {
+					if(key == views) {
+						views = key;
+						views_value = app_value[key];
+						for(key in views_value) {
+							if(key == view_index) {
+								view_not_found = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}//eof for
+		if(view_not_found) {
+			console.log(server_prefix + " - View requested, but not found: " + view_index);
+			view = 'not_found';
+		}
+	}
+	console.log(server_prefix + " - View requested: " + view_index);
+	if(typeof configs.css_file_location === 'undefined') {
+		var css_file_location = 'css/style.css';
+	}
+	else {
+		var css_file_location = configs.css_file_location;
+		// replace the css file name by the app name, if provided
+		if(typeof app_name === 'undefined'){
+			// continue without replacement
+		}
+		else {
+			css_file_location = css_file_location.replace('style', app_name);
+		}
+	}
+    res.render(app, { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, app_name: app_name, view_index: view_index, layout: false });
 });
 
 var app_server = app.listen(app_port, function() {
