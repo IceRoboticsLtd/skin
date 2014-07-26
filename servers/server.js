@@ -11,7 +11,8 @@ var express = require('express'),
 	errorHandler = require('errorhandler'),
 	session = require('express-session'),
 	passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy;
+	LocalStrategy = require('passport-local').Strategy,
+	FacebookStrategy = require('passport-facebook').Strategy;
 
 /*
  * CONFIGS - The Configurations
@@ -101,6 +102,13 @@ if(typeof configs.app_list === 'undefined'){
 }
 else {
 	var app_list = configs.app_list;
+}
+// User List
+if(typeof configs.user_list === 'undefined'){
+	var user_list = {};
+}
+else {
+	var user_list = configs.user_list;
 }
 /*
  * API - The Application Programming Interface
