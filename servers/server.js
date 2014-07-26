@@ -201,7 +201,17 @@ if('development' == app.settings.env){
 	 */
     app.use(bodyParser()); // pull information from html in POST
     app.use(methodOverride());
-    app.use(cookieParser());
+    app.use(cookieParser('s3cr3t')); // TODO get from config
+	i18n.expressBind(app, {
+		locales: ['nl', 'en'], // TODO get from config
+		defaultLocale: 'en',   // TODO get from config
+		cookieName: 'locale'
+	});
+	app.use(function(req, res, next) {
+		req.i18n.setLocaleFromQuery();
+		req.i18n.setLocaleFromCookie();
+		next();
+	});	
     app.use(device.capture());
     app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
     app.use(passport.initialize());
@@ -327,7 +337,17 @@ if('production' == app.settings.env){
 	 */
     app.use(bodyParser()); // pull information from html in POST
     app.use(methodOverride());
-    app.use(cookieParser());
+    app.use(cookieParser('s3cr3t')); // TODO get from config
+	i18n.expressBind(app, {
+		locales: ['nl', 'en'], // TODO get from config
+		defaultLocale: 'en',   // TODO get from config
+		cookieName: 'locale'
+	});
+	app.use(function(req, res, next) {
+		req.i18n.setLocaleFromQuery();
+		req.i18n.setLocaleFromCookie();
+		next();
+	});
     app.use(device.capture());
     app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
     app.use(passport.initialize());
