@@ -196,6 +196,37 @@ if('development' == app.settings.env){
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
+    /**
+     * Passport
+	 */
+	passport.use(new LocalStrategy({
+			// Set the field names here
+			usernameField: 'username',
+			passwordField: 'password'
+		},
+		function(username, password, done) {
+			console.log(server_prefix + "Authenticating username " + username + " and password " + password);
+			// Get the username and password from the input arguments of the function
+			// TEMP, make dynamic
+			var username_default = 'scott';
+			var password_default = 'tiger';
+			if(!username_default) {
+				// If user does not exist
+				console.log(server_prefix + "Authenticating: username " + username + " does not exist.");
+				return done(null, false, {message: "The user does not exist."});
+			}
+			else if(!hashing.compare(password, password_default)) {
+				// If the password does not match
+				console.log(server_prefix + "Authenticating: password " + username + " does not match.");
+				return done(null, false, {message: "The password does not match."});
+			}
+			else {
+				// If all is OK, return null as the error and the authenticated user
+				console.log(server_prefix + "Authenticating username " + username + " and password " + password + " : successful");
+				return done(null, username_default);
+			}
+		}
+	));    
 };
 /*
  * APP PRODUCTION
@@ -235,6 +266,37 @@ if('production' == app.settings.env){
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
+    /**
+     * Passport
+	 */
+	passport.use(new LocalStrategy({
+			// Set the field names here
+			usernameField: 'username',
+			passwordField: 'password'
+		},
+		function(username, password, done) {
+			console.log(server_prefix + "Authenticating username " + username + " and password " + password);
+			// Get the username and password from the input arguments of the function
+			// TEMP, make dynamic
+			var username_default = 'scott';
+			var password_default = 'tiger';
+			if(!username_default) {
+				// If user does not exist
+				console.log(server_prefix + "Authenticating: username " + username + " does not exist.");
+				return done(null, false, {message: "The user does not exist."});
+			}
+			else if(!hashing.compare(password, password_default)) {
+				// If the password does not match
+				console.log(server_prefix + "Authenticating: password " + username + " does not match.");
+				return done(null, false, {message: "The password does not match."});
+			}
+			else {
+				// If all is OK, return null as the error and the authenticated user
+				console.log(server_prefix + "Authenticating username " + username + " and password " + password + " : successful");
+				return done(null, username_default);
+			}
+		}
+	));    
 };
 
 app.all('*', function(req, res, next){
