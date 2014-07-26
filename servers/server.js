@@ -217,18 +217,20 @@ if('development' == app.settings.env){
 	 */
 	passport.serializeUser(function(user, done) {
 		console.log(server_prefix + " - Serialize user " + user);
-		done(null, user.id);
+		return done(null, user.id);
 	});
 	passport.deserializeUser(function(id, done) {
+		var user = '';
+		var user_keys = {};		
 		var user_not_found = true; // default to true
 		// Lookup user in user list by id, if found set not_found to false
 		for (key in user_list) {
 			user = key;
-			user_keys = user[key];
+			user_keys = user_list[key];
 			for(user_key in user_keys) {
 				if(user_key == 'id') {
-					id_key = user_key;
-					id_value = id_key[user_key];
+					var id_key = user_key;
+					var id_value = user_keys[user_key];
 					if(id_value == id) {
 						id = id_value;
 						user_not_found = false;
@@ -244,7 +246,7 @@ if('development' == app.settings.env){
 		}
 		else {
 			console.log(server_prefix + " - Deserialize user " + user);
-			done(null, user);
+			return done(null, user);
 		}
 	});
 	passport.use(new LocalStrategy({
@@ -281,7 +283,7 @@ if('development' == app.settings.env){
 				hash(password, salt, function (err, hash) {
 					if(err) {
 						console.log(server_prefix + " - Error: " + err);
-						done(err);
+						return done(err);
 					}
 					hash = hash.toString('hex'); // NOTE: necessary for string comparison
 					if(hash == user_values.hash) {
@@ -289,7 +291,7 @@ if('development' == app.settings.env){
 						return done(null, user_values);
 					}
 					console.log(server_prefix + " - Incorrect password");
-					done(null, false, { message: 'Incorrect password.' });
+					return done(null, false, { message: 'Incorrect password.' });
 				});
 			}
 		}
@@ -341,18 +343,20 @@ if('production' == app.settings.env){
 	 */
 	passport.serializeUser(function(user, done) {
 		console.log(server_prefix + " - Serialize user " + user);
-		done(null, user.id);
+		return done(null, user.id);
 	});
 	passport.deserializeUser(function(id, done) {
+		var user = '';
+		var user_keys = {};		
 		var user_not_found = true; // default to true
 		// Lookup user in user list by id, if found set not_found to false
 		for (key in user_list) {
 			user = key;
-			user_keys = user[key];
+			user_keys = user_list[key];
 			for(user_key in user_keys) {
 				if(user_key == 'id') {
-					id_key = user_key;
-					id_value = id_key[user_key];
+					var id_key = user_key;
+					var id_value = user_keys[user_key];
 					if(id_value == id) {
 						id = id_value;
 						user_not_found = false;
@@ -368,7 +372,7 @@ if('production' == app.settings.env){
 		}
 		else {
 			console.log(server_prefix + " - Deserialize user " + user);
-			done(null, user);
+			return done(null, user);
 		}
 	});
 	passport.use(new LocalStrategy({
@@ -405,7 +409,7 @@ if('production' == app.settings.env){
 				hash(password, salt, function (err, hash) {
 					if(err) {
 						console.log(server_prefix + " - Error: " + err);
-						done(err);
+						return done(err);
 					}
 					hash = hash.toString('hex'); // NOTE: necessary for string comparison
 					if(hash == user_values.hash) {
@@ -413,7 +417,7 @@ if('production' == app.settings.env){
 						return done(null, user_values);
 					}
 					console.log(server_prefix + " - Incorrect password");
-					done(null, false, { message: 'Incorrect password.' });
+					return done(null, false, { message: 'Incorrect password.' });
 				});
 			}
 		}
@@ -575,7 +579,7 @@ function loginPost(req, res, next) {
 	    	// if authentication fail, get the error message that we set
 	    	// from previous (info.message) step, assign it into to
 	    	// req.session and redirect to the login page again to display
-	    	console.log(server_prefix + " - Login, no username: " + info.message);
+	    	console.log(server_prefix + " - Login, message: " + info.message);
 	    	req.session.messages = info.message;
 	    	return res.redirect('/login');
 	    }
