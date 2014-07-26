@@ -7,7 +7,10 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
 	methodOverride = require('method-override'),
-	errorHandler = require('errorhandler');
+	errorHandler = require('errorhandler'),
+	session = require('express-session'),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy;
 
 /*
  * CONFIGS - The Configurations
@@ -184,6 +187,9 @@ if('development' == app.settings.env){
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
+    app.use(session()); // required by passport
+    app.use(passport.initialize());
+    app.use(passport.session());    
     app.enableDeviceHelpers();
     app.enableViewRouting();
     app.use('/resources', express.static(__dirname + '/../public/resources'));
@@ -220,6 +226,9 @@ if('production' == app.settings.env){
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
+    app.use(session()); // required by passport
+    app.use(passport.initialize());
+    app.use(passport.session());    
     app.enableDeviceHelpers();
     app.enableViewRouting();
     app.use('/resources', express.static(__dirname + '/../public/resources'));
