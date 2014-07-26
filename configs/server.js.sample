@@ -22,6 +22,9 @@ module.exports.configs = {
 	format_list: {
 		'json': true	
 	}, // put your formats here
+	user_list: {
+		'scott': { username: 'scott', salt: '', hash: '', name: 'scott', email: 'scott@tiger.com', facebookId: 'scott_tiger' }
+	}, // put your users here
 	allow_cross_domain : true, // allow is true, otherwise false
 	allowedHosts : {
 		'http://yourhostname.com': true,
