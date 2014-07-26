@@ -198,7 +198,22 @@ if('development' == app.settings.env){
     app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
     /**
      * Passport
+     * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
 	 */
+	passport.serializeUser(function(username, done) {
+		console.log(server_prefix + "Serialize username " + username);
+		done(null, username);
+	});
+	passport.deserializeUser(function(username, done) {
+		var username_found = true; // TEMP, make dynamic
+		if(username_found) {
+			console.log(server_prefix + "Deserialize username " + username);
+			done(null, username);
+		} else {
+			console.log(server_prefix + "Deserialize username " + username + " failed: username not found");
+			done(new Error('Username not found'));
+		}
+	});
 	passport.use(new LocalStrategy({
 			// Set the field names here
 			usernameField: 'username',
@@ -268,7 +283,22 @@ if('production' == app.settings.env){
     app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
     /**
      * Passport
+     * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
 	 */
+	passport.serializeUser(function(username, done) {
+		console.log(server_prefix + "Serialize username " + username);
+		done(null, username);
+	});
+	passport.deserializeUser(function(username, done) {
+		var username_found = true; // TEMP, make dynamic
+		if(username_found) {
+			console.log(server_prefix + "Deserialize username " + username);
+			done(null, username);
+		} else {
+			console.log(server_prefix + "Deserialize username " + username + " failed: username not found");
+			done(new Error('Username not found'));
+		}
+	});
 	passport.use(new LocalStrategy({
 			// Set the field names here
 			usernameField: 'username',
