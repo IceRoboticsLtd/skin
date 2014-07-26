@@ -84,7 +84,6 @@ var managePreparationForShutdown = function(callback) {
 	console.log(server_prefix + " - All preparations for shutdown completed.");
 	callback();
 };
-
 /*
  * APP - The Application
  */
@@ -216,18 +215,36 @@ if('development' == app.settings.env){
      * Passport
      * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
 	 */
-	passport.serializeUser(function(username, done) {
-		console.log(server_prefix + "Serialize username " + username);
-		done(null, username);
+	passport.serializeUser(function(user, done) {
+		console.log(server_prefix + " - Serialize user " + user);
+		done(null, user.id);
 	});
-	passport.deserializeUser(function(username, done) {
-		var username_found = true; // TEMP, make dynamic
-		if(username_found) {
-			console.log(server_prefix + "Deserialize username " + username);
-			done(null, username);
-		} else {
-			console.log(server_prefix + "Deserialize username " + username + " failed: username not found");
-			done(new Error('Username not found'));
+	passport.deserializeUser(function(id, done) {
+		var user_not_found = true; // default to true
+		// Lookup user in user list by id, if found set not_found to false
+		for (key in user_list) {
+			user = key;
+			user_keys = user[key];
+			for(user_key in user_keys) {
+				if(user_key == 'id') {
+					id_key = user_key;
+					id_value = id_key[user_key];
+					if(id_value == id) {
+						id = id_value;
+						user_not_found = false;
+						break;
+					}
+				}
+			}
+		}//eof for
+		if(user_not_found) {
+			console.log(server_prefix + " - Deserialize user " + user + " failed: user not found");
+			user = 'not_found';
+			return done(null, false, {message: "The user " + user + " has not been found."});
+		}
+		else {
+			console.log(server_prefix + " - Deserialize user " + user);
+			done(null, user);
 		}
 	});
 	passport.use(new LocalStrategy({
@@ -236,28 +253,48 @@ if('development' == app.settings.env){
 			passwordField: 'password'
 		},
 		function(username, password, done) {
-			console.log(server_prefix + "Authenticating username " + username + " and password " + password);
+			console.log(server_prefix + " - Authenticating username " + username + " and password " + password);
 			// Get the username and password from the input arguments of the function
-			// TEMP, make dynamic
-			var username_default = 'scott';
-			var password_default = 'tiger';
-			if(!username_default) {
-				// If user does not exist
-				console.log(server_prefix + "Authenticating: username " + username + " does not exist.");
-				return done(null, false, {message: "The user does not exist."});
-			}
-			else if(!hashing.compare(password, password_default)) {
-				// If the password does not match
-				console.log(server_prefix + "Authenticating: password " + username + " does not match.");
-				return done(null, false, {message: "The password does not match."});
+			var user_key = '';
+			var user_values = {};
+			var user_not_found = true; // default to true
+			// Lookup user in user list, if found set not_found to false
+			for (key in user_list) {
+				if(key == username) {
+					user_key = key;
+					console.log(server_prefix + " - Authenticating found user key:");
+					console.log(user_key);
+					user_values = user_list[user_key];
+					console.log(server_prefix + " - Authenticating found user values:");
+					console.log(user_values);
+					user_not_found = false;
+					break;
+				}
+			}//eof for
+			if(user_not_found) {
+				console.log(server_prefix + " - User requested, but not found: " + user);
+				user = 'not_found';
+				return done(null, false, {message: "The user " + user + " has not been found."});
 			}
 			else {
-				// If all is OK, return null as the error and the authenticated user
-				console.log(server_prefix + "Authenticating username " + username + " and password " + password + " : successful");
-				return done(null, username_default);
+				var salt = user_values.salt;
+				hash(password, salt, function (err, hash) {
+					if(err) {
+						console.log(server_prefix + " - Error: " + err);
+						done(err);
+					}
+					if(hash == user_values.hash) {
+						console.log(server_prefix + " - Correct password");
+						return done(null, user_values);
+					}
+					console.log(server_prefix + " - Incorrect password");
+					done(null, false, { message: 'Incorrect password.' });
+				});
 			}
 		}
-	));    
+	));
+	// TODO:
+	// passport.use(new FacebookStrategy({}));   
 };
 /*
  * APP PRODUCTION
@@ -301,18 +338,36 @@ if('production' == app.settings.env){
      * Passport
      * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
 	 */
-	passport.serializeUser(function(username, done) {
-		console.log(server_prefix + "Serialize username " + username);
-		done(null, username);
+	passport.serializeUser(function(user, done) {
+		console.log(server_prefix + " - Serialize user " + user);
+		done(null, user.id);
 	});
-	passport.deserializeUser(function(username, done) {
-		var username_found = true; // TEMP, make dynamic
-		if(username_found) {
-			console.log(server_prefix + "Deserialize username " + username);
-			done(null, username);
-		} else {
-			console.log(server_prefix + "Deserialize username " + username + " failed: username not found");
-			done(new Error('Username not found'));
+	passport.deserializeUser(function(id, done) {
+		var user_not_found = true; // default to true
+		// Lookup user in user list by id, if found set not_found to false
+		for (key in user_list) {
+			user = key;
+			user_keys = user[key];
+			for(user_key in user_keys) {
+				if(user_key == 'id') {
+					id_key = user_key;
+					id_value = id_key[user_key];
+					if(id_value == id) {
+						id = id_value;
+						user_not_found = false;
+						break;
+					}
+				}
+			}
+		}//eof for
+		if(user_not_found) {
+			console.log(server_prefix + " - Deserialize user " + user + " failed: user not found");
+			user = 'not_found';
+			return done(null, false, {message: "The user " + user + " has not been found."});
+		}
+		else {
+			console.log(server_prefix + " - Deserialize user " + user);
+			done(null, user);
 		}
 	});
 	passport.use(new LocalStrategy({
@@ -321,28 +376,48 @@ if('production' == app.settings.env){
 			passwordField: 'password'
 		},
 		function(username, password, done) {
-			console.log(server_prefix + "Authenticating username " + username + " and password " + password);
+			console.log(server_prefix + " - Authenticating username " + username + " and password " + password);
 			// Get the username and password from the input arguments of the function
-			// TEMP, make dynamic
-			var username_default = 'scott';
-			var password_default = 'tiger';
-			if(!username_default) {
-				// If user does not exist
-				console.log(server_prefix + "Authenticating: username " + username + " does not exist.");
-				return done(null, false, {message: "The user does not exist."});
-			}
-			else if(!hashing.compare(password, password_default)) {
-				// If the password does not match
-				console.log(server_prefix + "Authenticating: password " + username + " does not match.");
-				return done(null, false, {message: "The password does not match."});
+			var user_key = '';
+			var user_values = {};
+			var user_not_found = true; // default to true
+			// Lookup user in user list, if found set not_found to false
+			for (key in user_list) {
+				if(key == username) {
+					user_key = key;
+					console.log(server_prefix + " - Authenticating found user key:");
+					console.log(user_key);
+					user_values = user_list[user_key];
+					console.log(server_prefix + " - Authenticating found user values:");
+					console.log(user_values);
+					user_not_found = false;
+					break;
+				}
+			}//eof for
+			if(user_not_found) {
+				console.log(server_prefix + " - User requested, but not found: " + user);
+				user = 'not_found';
+				return done(null, false, {message: "The user " + user + " has not been found."});
 			}
 			else {
-				// If all is OK, return null as the error and the authenticated user
-				console.log(server_prefix + "Authenticating username " + username + " and password " + password + " : successful");
-				return done(null, username_default);
+				var salt = user_values.salt;
+				hash(password, salt, function (err, hash) {
+					if(err) {
+						console.log(server_prefix + " - Error: " + err);
+						done(err);
+					}
+					if(hash == user_values.hash) {
+						console.log(server_prefix + " - Correct password");
+						return done(null, user_values);
+					}
+					console.log(server_prefix + " - Incorrect password");
+					done(null, false, { message: 'Incorrect password.' });
+				});
 			}
 		}
-	));    
+	));
+	// TODO:
+	// passport.use(new FacebookStrategy({}));    
 };
 
 app.all('*', function(req, res, next){
@@ -383,7 +458,34 @@ if(typeof configs.host === 'undefined'){
 else {
 	var host = configs.host;
 }
-// routing to pages
+/** 
+ * GET requests
+ */
+// routing to test, use before '/'
+app.get('/test', testGet);
+function testGet(req, res) {
+	// Distinguish based on an optional key-value parameter in the request url (e.g. '/test/?app=calculator')
+	console.log(server_prefix + " - Test requested");
+	var app = 'test'; // default
+    res.render(app, { title: title, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, layout: false });
+};
+// routing to login, use before '/'
+app.get('/login', loginGet);
+function loginGet(req, res) {
+  if(req.user){
+    // already logged in
+    res.redirect('/');
+  } else {
+    // not logged in, show the login form, remember to pass the message
+    // for displaying when error happens
+    console.log(server_prefix + " - Login requested");
+	var app = 'login'; // default  
+    res.render(app, { title: title, message: req.session.messages });
+    // and then remember to clear the message
+    req.session.messages = null;
+  }
+};
+// routing to page
 app.get('/', function(req, res) {
 	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
 	var app = 'page'; // default
@@ -454,7 +556,44 @@ app.get('/', function(req, res) {
 	}
     res.render(app, { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, app_name: app_name, view_index: view_index, layout: false });
 });
-
+/** 
+ * POST requests
+ */
+// routing to login, use before '/' 
+app.post('/login', loginPost);
+function loginPost(req, res, next) {
+	// ask passport to authenticate
+	passport.authenticate('local', function(err, username, info) {
+	    if (err) {
+	    	console.log(server_prefix + " - Login, error: " + err);
+	    	// if error happens
+	    	return next(err);
+	    }
+	    if (!username) {
+	    	// if authentication fail, get the error message that we set
+	    	// from previous (info.message) step, assign it into to
+	    	// req.session and redirect to the login page again to display
+	    	console.log(server_prefix + " - Login, no username: " + info.message);
+	    	req.session.messages = info.message;
+	    	return res.redirect('/login');
+	    }
+	    // if everything is OK
+	    req.logIn(username, function(err) {
+	    	if (err) {
+	    		console.log(server_prefix + " - Login, error: " + err);
+	        	req.session.messages = "Error";
+	        	return next(err);
+	    	}
+	    	// set the message
+	    	console.log(server_prefix + " - Login successful, redirecting ...");
+	    	req.session.messages = "Login successfully";
+	    	return res.redirect('/');
+	    });
+	})(req, res, next);
+};
+/**
+ * LISTEN
+ */ 
 var app_server = app.listen(app_port, function() {
 	console.log(server_prefix + " - Express app server listening on port %d in %s mode", app_port, app.settings.env);
 });
