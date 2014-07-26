@@ -23,7 +23,7 @@ module.exports.configs = {
 		'json': true	
 	}, // put your formats here
 	user_list: {
-		'scott': { id: 1, username: 'scott', salt: '', hash: '', name: 'scott', email: 'scott@tiger.com', facebookId: 'scott_tiger' }
+		'scott': { id: 1, username: 'scott', salt: '12345', hash: '49dbda8199d3524e18ef9cda6c1ef27099d8e2a82e600954cd24c8e495e4aaf867c03c033c98f370f9f86a4beb865092a8501789f51482e68fda7d12d1b3450b0b0f16046ccbe160a39771b4f0ec04917b6f56a1aedb186cab74dd3555883a88a76b87ad43b4e9aeacc6d7bfce603cfd587a1bc987b5640ad740ce0f7458237d', name: 'scott', email: 'scott@tiger.com', facebookId: 'scott_tiger' }
 	}, // put your users here
 	allow_cross_domain : true, // allow is true, otherwise false
 	allowedHosts : {
