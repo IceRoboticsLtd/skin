@@ -7,6 +7,7 @@ var express = require('express'),
 	redirect = require('express-redirect'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
+	i18n = require('i18n-2'),
 	methodOverride = require('method-override'),
 	errorHandler = require('errorhandler'),
 	session = require('express-session'),
@@ -478,19 +479,30 @@ function testGet(req, res) {
 // routing to login, use before '/'
 app.get('/login', loginGet);
 function loginGet(req, res) {
-  if(req.user){
-    // already logged in
-    res.redirect('/');
-  } else {
-    // not logged in, show the login form, remember to pass the message
-    // for displaying when error happens
-    console.log(server_prefix + " - Login requested");
-	var app = 'login'; // default  
-    res.render(app, { title: title, message: req.session.messages });
-    // and then remember to clear the message
-    req.session.messages = null;
-  }
+	console.log(server_prefix + " - Login requested");	
+	if(req.user) {
+    	// already logged in
+    	res.redirect('/?app=mydefaultstore'); // TODO make dynamic
+	} else {
+    	// not logged in, show the login form, remember to pass the message
+    	// for displaying when error happens
+    	console.log(server_prefix + " - Login requested");
+		var app = 'login'; // default  
+    	res.render(app, { title: title, message: req.session.messages });
+    	// and then remember to clear the message
+    	req.session.messages = null;
+	}
 };
+// routing to logout, use before '/'
+app.get('/logout', logoutGet);
+function logoutGet(req, res) {
+	console.log(server_prefix + " - Logout requested");
+	if(req.isAuthenticated()) {
+		req.logout();
+		req.session.messages = req.i18n.__("Log out successfully");
+	}
+	res.redirect('/login'); // TODO Choose what page to go to
+}
 // routing to page
 app.get('/', function(req, res) {
 	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
