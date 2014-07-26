@@ -212,10 +212,7 @@ if('development' == app.settings.env){
 		req.i18n.setLocaleFromCookie();
 		next();
 	});	
-    app.use(device.capture());
-    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
-    app.use(passport.initialize());
-    app.use(passport.session());    
+    app.use(device.capture());    
     app.enableDeviceHelpers();
     app.enableViewRouting();
     app.use('/resources', express.static(__dirname + '/../public/resources'));
@@ -223,6 +220,10 @@ if('development' == app.settings.env){
     app.use('/tests', express.static(__dirname + '/../tests'));    
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
+    // These next instructions are placed after express.static to avoid passport.deserializeUser to be called several times
+    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
+    app.use(passport.initialize());
+    app.use(passport.session());
     /**
      * Passport
      * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
@@ -349,10 +350,7 @@ if('production' == app.settings.env){
 		req.i18n.setLocaleFromCookie();
 		next();
 	});
-    app.use(device.capture());
-    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
-    app.use(passport.initialize());
-    app.use(passport.session());    
+    app.use(device.capture());   
     app.enableDeviceHelpers();
     app.enableViewRouting();
     app.use('/resources', express.static(__dirname + '/../public/resources'));
@@ -360,6 +358,10 @@ if('production' == app.settings.env){
     app.use('/tests', express.static(__dirname + '/../tests'));    
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
     app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
+    // These next instructions are placed after express.static to avoid passport.deserializeUser to be called several times
+    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
+    app.use(passport.initialize());
+    app.use(passport.session()); 
     /**
      * Passport
      * See http://truongtx.me/2014/03/29/authentication-in-nodejs-and-expressjs-with-passportjs-part-1/
