@@ -525,6 +525,21 @@ function logoutGet(req, res) {
 	}
 	res.redirect('/login'); // TODO Choose what page to go to
 }
+// routing to admin, use before '/'
+app.get('/admin', requireAuth, adminGet);
+function adminGet(req, res) {
+	console.log(server_prefix + " - Admin requested");
+	// TODO	
+}
+// general function that can be called first
+function requireAuth(req, res, next) {
+	console.log(server_prefix + " - Require authentication requested");	
+	if(!req.isAuthenticated()) {
+		req.session.messages = "You need to login to view this page";
+		res.redirect('/login');
+	}
+	next();
+}
 // routing to page
 app.get('/', function(req, res) {
 	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
