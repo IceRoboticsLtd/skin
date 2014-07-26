@@ -23,7 +23,7 @@ module.exports.configs = {
 		'json': true	
 	}, // put your formats here
 	user_list: {
-		'scott': { username: 'scott', salt: '', hash: '', name: 'scott', email: 'scott@tiger.com', facebookId: 'scott_tiger' }
+		'scott': { id: 1, username: 'scott', salt: '', hash: '', name: 'scott', email: 'scott@tiger.com', facebookId: 'scott_tiger' }
 	}, // put your users here
 	allow_cross_domain : true, // allow is true, otherwise false
 	allowedHosts : {
