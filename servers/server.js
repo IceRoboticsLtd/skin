@@ -3,6 +3,7 @@
  */ 
 var express = require('express'),
 	device = require('../lib/device.js'),
+	hash = require('../lib/pass.js').hash,	
 	redirect = require('express-redirect'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
@@ -139,6 +140,13 @@ if(typeof configs.format_list === 'undefined'){
 }
 else {
 	var format_list = configs.format_list;
+}
+// User List
+if(typeof configs.user_list === 'undefined'){
+	var user_list = {};
+}
+else {
+	var user_list = configs.user_list;
 }
 // API All
 api.all('*', function(req, res, next){
