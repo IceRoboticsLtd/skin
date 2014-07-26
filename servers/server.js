@@ -187,7 +187,7 @@ if('development' == app.settings.env){
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
-    app.use(session()); // required by passport
+    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
     app.use(passport.initialize());
     app.use(passport.session());    
     app.enableDeviceHelpers();
@@ -226,7 +226,7 @@ if('production' == app.settings.env){
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(device.capture());
-    app.use(session()); // required by passport
+    app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
     app.use(passport.initialize());
     app.use(passport.session());    
     app.enableDeviceHelpers();
