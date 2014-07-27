@@ -2,3 +2,5 @@
 /favicon.png
 /humans.txt
 /login.ejs
+/layout.ejs
+/layout_content_container_no_sidebar.ejs
