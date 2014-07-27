@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./css/jquery-ui.css"></link>
+		<link rel="stylesheet" href="./css/bootstrap-theme.css"></link>
+	</head>
+	<body style="background-color:#fff;">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="page-header">
+						<h1 style="font-size:40px;">
+							<%= title %>
+						</h1>
+					</div>
+					<%- body %>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
