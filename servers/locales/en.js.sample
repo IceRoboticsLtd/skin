@@ -1,7 +1,8 @@
-/**
- * EN - English
- */
 {
-	"Log out successfully": "Log out successfully",
-	"Example": "Example"
+	"Locale": "EN - English",
+	"Log out successfully.": "Log out successfully.",
+	"You need to login to view this page.": "You need to login to view this page.",
+	"Error": "Error",
+	"Missing credentials": "Missing credentials",
+	"Login successfully.": "Login successfully."
 }

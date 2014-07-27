@@ -523,7 +523,7 @@ function logoutGet(req, res) {
 	console.log(server_prefix + " - Logout requested");
 	if(req.isAuthenticated()) {
 		req.logout();
-		req.session.messages = req.i18n.__("Log out successfully");
+		req.session.messages = req.i18n.__("Log out successfully.");
 	}
 	res.redirect('/login'); // TODO Choose what page to go to
 }
@@ -537,7 +537,7 @@ function adminGet(req, res) {
 function requireAuth(req, res, next) {
 	console.log(server_prefix + " - Require authentication requested");	
 	if(!req.isAuthenticated()) {
-		req.session.messages = "You need to login to view this page";
+		req.session.messages = req.i18n.__("You need to login to view this page.");
 		res.redirect('/login');
 	}
 	next();
@@ -631,19 +631,19 @@ function loginPost(req, res, next) {
 	    	// from previous (info.message) step, assign it into to
 	    	// req.session and redirect to the login page again to display
 	    	console.log(server_prefix + " - Login, message: " + info.message);
-	    	req.session.messages = info.message;
+	    	req.session.messages = req.i18n.__(info.message);
 	    	return res.redirect('/login');
 	    }
 	    // if everything is OK
 	    req.logIn(username, function(err) {
 	    	if (err) {
 	    		console.log(server_prefix + " - Login, error: " + err);
-	        	req.session.messages = "Error";
+	        	req.session.messages = req.i18n.__("Error");
 	        	return next(err);
 	    	}
 	    	// set the message
 	    	console.log(server_prefix + " - Login successful, redirecting ...");
-	    	req.session.messages = "Login successfully";
+	    	req.session.messages = req.i18n.__("Login successfully.");
 	    	return res.redirect('/?app=mydefaultstore'); // TODO make dynamic
 	    });
 	})(req, res, next);

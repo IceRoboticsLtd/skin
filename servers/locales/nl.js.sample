@@ -1,7 +1,8 @@
-/**
- * NL - Nederlands
- */
 {
-	"Log out successfully": "Log uit succesvol",
-	"Example": "Voorbeeld"
+	"Locale": "NL - Nederlands",
+	"Log out successfully.": "Log uit succesvol.",
+	"You need to login to view this page.": "U moet inloggen om deze pagina te zien.",
+	"Error": "Fout",
+	"Missing credentials": "Ontbrekende inloggegevens",
+	"Login successfully.": "Log in succesvol."
 }
