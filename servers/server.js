@@ -2,6 +2,7 @@
  * SERVER - The Server
  */ 
 var express = require('express'),
+	partials = require('express-partials'),
 	device = require('../lib/device.js'),
 	hash = require('../lib/pass.js').hash,	
 	redirect = require('express-redirect'),
@@ -191,7 +192,10 @@ api.post('/login', function(req, res){
 if('development' == app.settings.env){
 	console.log(server_prefix + " - Using development configurations");
     app.set('view engine', 'ejs');
-    app.set('view options', { layout: true });
+    app.set('view options', { 
+    	layout: '/../public/layout.ejs', 
+    	layout_content_container_no_sidebar: '/../public/layout_content_container_no_sidebar.ejs' 
+    });
     app.set('views', __dirname + '/../public');
 	/*
 	 * bodyParser() is the composition of three middlewares:
@@ -199,6 +203,7 @@ if('development' == app.settings.env){
 	 * - urlencoded: parses x-ww.form-urlencoded request bodies
 	 * - multipart: parses multipart/form-data request bodies
 	 */
+	app.use(partials());	 
     app.use(bodyParser()); // pull information from html in POST
     app.use(methodOverride());
     app.use(cookieParser('s3cr3t')); // TODO get from config
@@ -329,7 +334,10 @@ if('development' == app.settings.env){
 if('production' == app.settings.env){
 	console.log(server_prefix + " - Using production configurations");
     app.set('view engine', 'ejs');
-    app.set('view options', { layout: true });
+    app.set('view options', { 
+    	layout: '/../public/layout.ejs', 
+    	layout_content_container_no_sidebar: '/../public/layout_content_container_no_sidebar.ejs' 
+    });
     app.set('views', __dirname + '/../public');
 	/*
 	 * bodyParser() is the composition of three middlewares:
@@ -337,6 +345,7 @@ if('production' == app.settings.env){
 	 * - urlencoded: parses x-ww.form-urlencoded request bodies
 	 * - multipart: parses multipart/form-data request bodies
 	 */
+	app.use(partials());	 
     app.use(bodyParser()); // pull information from html in POST
     app.use(methodOverride());
     app.use(cookieParser('s3cr3t')); // TODO get from config
@@ -512,7 +521,7 @@ function loginGet(req, res) {
     	// for displaying when error happens
     	console.log(server_prefix + " - Login requested");
 		var app = 'login'; // default  
-    	res.render(app, { title: title, message: req.session.messages });
+    	res.render(app, { title: title, message: req.session.messages, layout: 'layout_content_container_no_sidebar'});
     	// and then remember to clear the message
     	req.session.messages = null;
 	}

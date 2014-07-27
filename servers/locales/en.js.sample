@@ -4,5 +4,18 @@
 	"You need to login to view this page.": "You need to login to view this page.",
 	"Error": "Error",
 	"Missing credentials": "Missing credentials",
-	"Login successfully.": "Login successfully."
+	"Login successfully.": "Login successfully.",
+
+	"loading.loading": "Loading...",	
+
+	"authen.log_in": "Login",
+	"authen.log_out": "Logout",
+	"authen.username": "Username",
+	"authen.password": "Password",
+	"authen.remember_me": "Remember me",
+	"authen.log_in_error": "Error while logging in",
+	"authen.log_in_success": "Successfully logged on",
+	"authen.log_out_success": "You have logged out",
+	"authen.unknown_user_or_password": "Either username or password is incorrect",
+	"authen.log_in_to_continue": "Please login to continue."	
 }

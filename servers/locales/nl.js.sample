@@ -1,8 +1,22 @@
 {
-	"Locale": "NL - Nederlands",
+	"locale": "NL - Nederlands",
 	"Log out successfully.": "Log uit succesvol.",
 	"You need to login to view this page.": "U moet inloggen om deze pagina te zien.",
 	"Error": "Fout",
 	"Missing credentials": "Ontbrekende inloggegevens",
-	"Login successfully.": "Log in succesvol."
+	"Login successfully.": "Log in succesvol.",
+
+	"loading.loading": "Laden...",	
+
+	"authen.log_in": "Login",
+	"authen.log_out": "Logout",
+	"authen.username": "Username",
+	"authen.password": "Password",
+	"authen.remember_me": "Remember me",
+	"authen.log_in_error": "Error while logging in",
+	"authen.log_in_success": "Successfully logged on",
+	"authen.log_out_success": "You have logged out",
+	"authen.unknown_user_or_password": "Either username or password is incorrect",
+	"authen.log_in_to_continue": "Please login to continue."
+
 }
