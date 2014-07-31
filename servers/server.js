@@ -2,7 +2,6 @@
  * SERVER - The Server
  */ 
 var express = require('express'),
-	routes = require('./routes'),
 	path = require('path'),
 	morgan = require('morgan'),
 	partials = require('express-partials'),
@@ -25,6 +24,11 @@ var express = require('express'),
 config = require('../configs/server.js');
 var configs = config.configs,
 	server_prefix = configs.server_prefix || 'SKIN';
+
+/* 
+ * ROUTES - The Routes
+ */
+var routes = require('../routes'); // it seems that we have to start each required file as its own var 
 
 /*
  * SERVICES - The Services
