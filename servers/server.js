@@ -233,7 +233,6 @@ if('development' == app.settings.env){
     app.use(device.capture());    
     app.enableDeviceHelpers();
     app.enableViewRouting();
-    // OLD app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/resources', express.static(path.join(__dirname, '/../public/resources')));
     app.use('/app', express.static(path.join(__dirname, '/../public/app')));
     app.use('/tests', express.static(path.join(__dirname, '/../tests')));
@@ -380,7 +379,6 @@ if('production' == app.settings.env){
     app.use(device.capture());   
     app.enableDeviceHelpers();
     app.enableViewRouting();
-    // OLD app.use('/resources', express.static(__dirname + '/../public/resources'));
     app.use('/resources', express.static(path.join(__dirname, '/../public/resources')));
     app.use('/app', express.static(path.join(__dirname, '/../public/app')));
     app.use('/tests', express.static(path.join(__dirname, '/../tests')));    
