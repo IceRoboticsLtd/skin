@@ -2,6 +2,9 @@
  * SERVER - The Server
  */ 
 var express = require('express'),
+	routes = require('./routes'),
+	path = require('path'),
+	morgan = require('morgan'),
 	partials = require('express-partials'),
 	device = require('../lib/device.js'),
 	hash = require('../lib/pass.js').hash,	
@@ -552,7 +555,9 @@ function requireAuth(req, res, next) {
 	next();
 }
 // routing to page
-app.get('/', function(req, res) {
+app.get('/', pageGet);
+function pageGet(req, res) {
+	console.log(server_prefix + " - Page requested");
 	// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
 	var app = 'page'; // default
 	var app_name = ''; // default
@@ -621,13 +626,14 @@ app.get('/', function(req, res) {
 		}
 	}
     res.render(app, { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, app_name: app_name, view_index: view_index, layout: false });
-});
+};
 /** 
  * POST requests
  */
 // routing to login, use before '/' 
 app.post('/login', loginPost);
 function loginPost(req, res, next) {
+	console.log(server_prefix + " - Login requested");
 	// ask passport to authenticate
 	passport.authenticate('local', function(err, username, info) {
 	    if (err) {
