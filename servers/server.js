@@ -25,6 +25,11 @@ config = require('../configs/server.js');
 var configs = config.configs,
 	server_prefix = configs.server_prefix || 'SKIN';
 
+/*
+ * ROUTER - The Router
+ */
+var router = express.Router();
+
 /* 
  * ROUTES - The Routes
  */
@@ -231,6 +236,9 @@ if('development' == app.settings.env){
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use('/tests', express.static(__dirname + '/../tests'));    
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
+    router.use(function(req, res, next) {
+    	// process each request
+    });    
     app.use(errorHandler({ dumpExceptions: true, showStack: true })); // specific for development
     // These next instructions are placed after express.static to avoid passport.deserializeUser to be called several times
     app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
@@ -373,6 +381,9 @@ if('production' == app.settings.env){
     app.use('/app', express.static(__dirname + '/../public/app'));
     app.use('/tests', express.static(__dirname + '/../tests'));    
     app.use(express.static(__dirname + '/../public')); // Fall back to this as a last resort
+    router.use(function(req, res, next) {
+    	// process each request
+    });    
     app.use(errorHandler({ dumpExceptions: false, showStack: false })); // specific for production
     // These next instructions are placed after express.static to avoid passport.deserializeUser to be called several times
     app.use(session({secret: 'default', saveUninitialized: true, resave: true})); // required by passport, default values required
