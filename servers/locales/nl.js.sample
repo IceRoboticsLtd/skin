@@ -5,18 +5,18 @@
 	"Error": "Fout",
 	"Missing credentials": "Ontbrekende inloggegevens",
 	"Login successfully.": "Log in succesvol.",
-
 	"loading.loading": "Laden...",	
-
-	"authen.log_in": "Login",
-	"authen.log_out": "Logout",
-	"authen.username": "Username",
-	"authen.password": "Password",
-	"authen.remember_me": "Remember me",
-	"authen.log_in_error": "Error while logging in",
-	"authen.log_in_success": "Successfully logged on",
-	"authen.log_out_success": "You have logged out",
-	"authen.unknown_user_or_password": "Either username or password is incorrect",
-	"authen.log_in_to_continue": "Please login to continue."
-
+	"authen.log_in": "Log in",
+	"authen.log_out": "Log uit",
+	"authen.recover": "Vraag op",
+	"authen.recover_email": "Uw Email Adres",	
+	"authen.username": "Gebruikersnaam",
+	"authen.password": "Wachtwoord",
+	"authen.forgot": "Vergeten?",	
+	"authen.remember_me": "Onthoud mij",
+	"authen.log_in_error": "Fout tijdens het inloggen",
+	"authen.log_in_success": "Met succes ingelogd",
+	"authen.log_out_success": "U hebt uitgelogd",
+	"authen.unknown_user_or_password": "Gebruikersnaam en/of wachtwoord is onjuist",
+	"authen.log_in_to_continue": "Log in om door te gaan, alstublieft."
 }

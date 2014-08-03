@@ -5,13 +5,14 @@
 	"Error": "Error",
 	"Missing credentials": "Missing credentials",
 	"Login successfully.": "Login successfully.",
-
 	"loading.loading": "Loading...",	
-
 	"authen.log_in": "Login",
 	"authen.log_out": "Logout",
+	"authen.recover": "Recover",
+	"authen.recover_email": "Your Email Address",	
 	"authen.username": "Username",
 	"authen.password": "Password",
+	"authen.forgot": "Forgot?",	
 	"authen.remember_me": "Remember me",
 	"authen.log_in_error": "Error while logging in",
 	"authen.log_in_success": "Successfully logged on",
