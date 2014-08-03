@@ -41,7 +41,7 @@ module.exports = function(req, res, next) {
 				else {
 					var title = configs.title;
 				}
-		    	res.render(app, { title: title, message: req.session.messages, layout: 'layout_content_container_no_sidebar' });
+		    	res.render('pages/login', { title: title, message: req.session.messages, layout: false });
 		    	// and then remember to clear the message
 		    	req.session.messages = null;
 			}

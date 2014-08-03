@@ -125,7 +125,7 @@ module.exports = function(req, res, next) {
 			else {
 				var web_root = configs.web_root;
 			}
-		    res.render(app, { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, app_name: app_name, view_index: view_index, layout: false });
+		    res.render('pages/page', { title: title, css_file_location: css_file_location, access_control_allow_origin: access_control_allow_origin, host: host, web_root: web_root, app_name: app_name, view_index: view_index, layout: false });
 		})
 		.put(function(req, res, next) {
 			console.log(server_prefix + " - Index put");
