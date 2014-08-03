@@ -1,0 +1,16 @@
+/*
+ * Login
+ */
+/////////////////////////// ON DOCUMENT READY /////////////////////////////
+$(document).ready(function() {
+	console.log('SKIN: Login document ready');
+
+	// to do
+
+});
+
+$(function(){
+
+	// more
+
+});
