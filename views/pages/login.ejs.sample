@@ -13,7 +13,7 @@
 					<div class="alert alert-danger"><%= message %></div>
 				<% } %>
 				<form id="login" method="post" action="/login" role="form">
-					<a href="#" id="flipToRecover" class="flipLink"><%= __("authen.forgot") %></a>
+					<a href="#" id="flipToRecover" class="flipLink"><%= __("authen.forgot?") %></a>
 					<div class="form-group">
 						<label for="username"><%= __("authen.username") %></label>
 						<div class="input-group">
@@ -36,7 +36,7 @@
 						<button type="submit" class="btn btn-primary" name="submit"><%= __("authen.log_in") %></button>
 				</form>
 				<form id="recover" method="post" action="./login">
-					<a href="#" id="flipToLogin" class="flipLink"><%= __("authen.forgot") %></a>
+					<a href="#" id="flipToLogin" class="flipLink"><%= __("authen.log_in?") %></a>
 					<div class="form-group">
 						<label for="recoverEmail"><%= __("authen.recover_email") %></label>
 						<div class="input-group">
