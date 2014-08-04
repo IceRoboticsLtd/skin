@@ -9,11 +9,13 @@
 		</header>
 		<main>
 			<div id="formContainer">
-				<% if (message) { %>
-					<div class="alert alert-danger"><%= message %></div>
-				<% } %>
 				<form id="login" method="post" action="/login" role="form">
 					<a href="#" id="flipToRecover" class="flipLink"><%= __("authen.forgot?") %></a>
+					<% if (message) { %>
+						<div style="margin: 20px;">
+							<div class="alert alert-danger"><%= message %></div>
+						</div>
+					<% } %>						
 					<div class="form-group">
 						<label for="username"><%= __("authen.username") %></label>
 						<div class="input-group">
