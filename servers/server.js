@@ -13,6 +13,7 @@ var express = require('express'),
 	i18n = require('i18n-2'),
 	methodOverride = require('method-override'),
 	errorHandler = require('errorhandler'),
+	sass = require('node-sass'),	
 	session = require('express-session'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
@@ -228,6 +229,13 @@ if('development' == app.settings.env){
     app.use(device.capture());    
     app.enableDeviceHelpers();
     app.enableViewRouting();
+	app.use(sass.middleware({
+		src: path.join(__dirname, '/../public/sass'),
+		dest: path.join(__dirname + '/../public/css'),
+		debug: true,
+		outputStyle: 'compressed',
+		prefix:  '/css'
+	}));    
     app.use('/app', express.static(path.join(__dirname, '/../public/app')));
     app.use('/tests', express.static(path.join(__dirname, '/../tests')));
     app.use(express.static(path.join(__dirname, '/../public'))); // Fall back to this as a last resort   
@@ -370,6 +378,13 @@ if('production' == app.settings.env){
     app.use(device.capture());   
     app.enableDeviceHelpers();
     app.enableViewRouting();
+	app.use(sass.middleware({
+		src: path.join(__dirname, '/../public/sass'),
+		dest: path.join(__dirname + '/../public/css'),
+		debug: true,
+		outputStyle: 'compressed',
+		prefix:  '/css'
+	}));    
     app.use('/app', express.static(path.join(__dirname, '/../public/app')));
     app.use('/tests', express.static(path.join(__dirname, '/../tests')));    
     app.use(express.static(path.join(__dirname, '/../public'))); // Fall back to this as a last resort    
