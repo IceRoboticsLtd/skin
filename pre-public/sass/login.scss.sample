@@ -1,3 +1,5 @@
+@import "login-bootstrap";
+
 #formContainer {
 	width: 288px;
 	height: 321px;
