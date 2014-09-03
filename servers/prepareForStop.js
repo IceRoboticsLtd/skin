@@ -11,7 +11,7 @@ var configs = config.configs;
 
 // Port
 if(typeof configs.server_port === 'undefined'){
-	var server_port = process.env.PORT || 11080;
+	var server_port = process.env.PORT || 13080;
 }
 else {
 	var server_port = configs.server_port;

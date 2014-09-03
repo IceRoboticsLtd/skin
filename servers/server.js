@@ -3,6 +3,7 @@
  */ 
 var express = require('express'),
 	path = require('path'),
+	mime = require('mime'),
 	morgan = require('morgan'),
 	partials = require('express-partials'),
 	device = require('../lib/device.js'),
@@ -43,7 +44,7 @@ var services = require('../routes/services'); // it seems that we have to start 
 var server = express();
 // Port
 if(typeof configs.server_port === 'undefined'){
-	var server_port = process.env.PORT || 10080;
+	var server_port = process.env.PORT || 13080;
 }
 else {
 	var server_port = configs.server_port;
