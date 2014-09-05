@@ -5,6 +5,8 @@ define(['./Base'], function (Base) {
     console.log('SKIN: config called');
     var configs = {
     	// to do
+    	themeServer: 'localhost:2000',
+    	theme: 'mydefaulttheme'    	
 	};
     var _Slider = new Base(configs);
     return _Slider;
