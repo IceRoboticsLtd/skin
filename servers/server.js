@@ -4,6 +4,8 @@
 var express = require('express'),
 	path = require('path'),
 	mime = require('mime'),
+	fs = require('fs'),
+	url = require('url'),	
 	morgan = require('morgan'),
 	partials = require('express-partials'),
 	device = require('../lib/device.js'),
@@ -486,14 +488,47 @@ if('production' == app.settings.env){
  * ALL requests
  */
 app.all('*', function(req, res, next){
-  if (!req.get('Origin')) return next();
-  // use "*" here to accept any origin
-  res.set('Access-Control-Allow-Origin', '*'); // Accepts requests coming from anyone, replace '*' by configs.allowedHosts to restrict it
-  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST');
-  res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-  // res.set('Access-Control-Allow-Max-Age', 3600);
-  if ('OPTIONS' == req.method) return res.send(200);
-  next();
+	if (!req.get('Origin')) return next();
+	// use "*" here to accept any origin
+	res.set('Access-Control-Allow-Origin', '*'); // Accepts requests coming from anyone, replace '*' by configs.allowedHosts to restrict it
+	res.set('Access-Control-Allow-Methods', 'GET, PUT, POST');
+	res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+	// res.set('Access-Control-Allow-Max-Age', 3600);
+	if ('OPTIONS' == req.method) return res.send(200);
+	// for static file requests
+	var static_file_path = "../public/"; 
+	var uri = url.parse(req.url).pathname;
+	var filename = path.join(static_file_path, uri);
+	fs.exists(filename, function(exists) {
+		if (!exists) {
+			response.writeHead(404, {
+				"Content-Type": "text/plain"
+			});
+			response.write("404 Not Found\n");
+			response.end();
+			return;
+		}
+		if(fs.statSync(filename).isDirectory()) {
+			// filename += '/index.html'; 
+			next();
+		}
+		fs.readFile(filename, "binary", function(err, file) {
+			if(err) {
+				response.writeHead(500, {
+					"Content-Type": "text/plain"
+				});
+				response.write(err + "\n");
+				response.end();
+				return;
+			}
+			var type = mime.lookup(filename);
+			response.writeHead(200, {
+				"Content-Type": type
+			});
+			response.write(file, "binary");
+			response.end();
+		});
+	});
 });
 /**
  * ALL using router
