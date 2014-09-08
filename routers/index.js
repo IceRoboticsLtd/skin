@@ -30,6 +30,10 @@ module.exports = function(req, res, next) {
 			// Distinguish based on an optional key-value parameter in the request url (e.g. '/?app=mydefaultstore')
 			var app = 'page'; // default
 			var app_name = ''; // default
+			var theme_server_key = 'themeServer'; 
+			var theme_server_value = ''; // default
+			var theme_key = 'theme';
+			var theme_value = ''; // default
 			// App List
 			if(typeof configs.app_list === 'undefined'){
 				var app_list = {};
@@ -46,6 +50,15 @@ module.exports = function(req, res, next) {
 					if(key == app_name) {
 						app_name = key;
 						app_not_found = false;
+						app_value = app_list[key];
+						for(key in app_value) {
+							if(key = theme_server_key){
+								theme_server_value = app_value[key];
+							}
+							if(key = theme_key) {
+								theme_value = app_value[key];
+							}
+						}
 						break;
 					}
 				}//eof for
@@ -104,6 +117,9 @@ module.exports = function(req, res, next) {
 					// continue without replacement
 				}
 				else {
+					// replace the css file location by the theme server, theme and app name
+					var theme_server_themes_theme = theme_server_value + "/themes/" + theme_value + "/";
+					css_file_location = theme_server_themes_theme + css_file_location;
 					css_file_location = css_file_location.replace('style', app_name);
 				}
 			}
