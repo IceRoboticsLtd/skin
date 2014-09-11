@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Title here -->
+		<title>Hello to Skin</title>
+		<!-- Description, Keywords and Author -->
+		<meta name="description" content="Your description">
+		<meta name="keywords" content="Your,Keywords">
+		<meta name="author" content="ResponsiveWebInc">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- Styles -->
+		<!-- Bootstrap CSS -->
+		<link href="http://localhost:2000/pages/mydefaultpage/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Font awesome CSS -->
+		<link href="http://localhost:2000/pages/mydefaultpage/css/font-awesome.min.css" rel="stylesheet">		
+		<!-- Custom CSS -->
+		<link href="http://localhost:2000/pages/mydefaultpage/css/style.css" rel="stylesheet">
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="#">
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="main">
+				<div class="row">
+					<div class="col-md-2">
+					
+						<div class="sidebar">
+							<!-- Project name -->
+							<h3>Apps</h3>
+							<ul>
+								<li><a href="#home">Home</a></li>
+								<li><a href="../?app=mydefaultstore">MyDefaultStore</a></li>
+							</ul>
+						</div>
+						
+					</div>
+					<div class="col-md-10">
+					
+						<div class="mainbar">
+						
+							<!-- Home -->
+							<h3 id="home">Hello to Skin</h3>
+
+							<p>This is the entry page of Skin app documentation. Choose from the apps on the left for details.</p>
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="footer text-center">
+				Copyright 2013 - <a href="http://responsivewebinc.com">Responsive Web Inc</a>
+			</div>
+		</div>
+	</body>	
+</html>
