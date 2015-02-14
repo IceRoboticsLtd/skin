@@ -1,1 +1,2 @@
-/page.ejs
+* 				# ignore everything in this directory and its subdirectories
+!.gitignore  	# do not ignore this file itself
