@@ -1,5 +1,15 @@
-/*
-* SERVER - The Server
+/* SKIN (default port 3xxx)
+* The full REST API for this application consists of the following methods:
+*
+* Method	URL	Action
+* GET	/services	Retrieve all services
+* GET	/services/5069b47aa892630aae000001	Retrieve the service with the specified _id
+* POST	/services	Add a new service
+* PUT	/services/5069b47aa892630aae000001	Update service with the specified _id
+* DELETE	/services/5069b47aa892630aae000001	Delete the service with the specified _id
+*/
+/**
+* Module dependencies.
 */
 var express = require('express'),
 path = require('path'),
@@ -29,8 +39,8 @@ FacebookStrategy = require('passport-facebook').Strategy;
 * CONFIGS - The Configurations
 */
 var config = require('../configs/server.js');
-var configs = config.configs,
-server_prefix = configs.server_prefix || 'SKIN';
+var configs = config.configs;
+var server_prefix = configs.server_prefix || 'SKIN';
 /*
 * ROUTER - The Router
 */
@@ -43,6 +53,7 @@ var routes = require('../routes'); // it seems that we have to start each requir
 * SERVICES - The Services
 */
 var services = require('../routes/services'); // it seems that we have to start each required file as its own var
+var testService = require('../services/test');
 /*
 * SERVER - The Server used for shutdown etc
 * See: https://www.exratione.com/2011/07/running-a-nodejs-server-as-a-service-using-forever/
@@ -62,9 +73,9 @@ console.log(server_prefix + " - To shutdown server gracefully type: node prepare
 
 server.get('/prepareForShutdown', function(req, res) {
 	if(req.connection.remoteAddress == "127.0.0.1"
-	|| req.socket.remoteAddress == "127.0.0.1"
-	// 0.4.7 oddity in https only
-	|| req.connection.socket.remoteAddress == "127.0.0.1")
+			|| req.socket.remoteAddress == "127.0.0.1"
+			// 0.4.7 oddity in https only
+			|| req.connection.socket.remoteAddress == "127.0.0.1")
 	{
 		managePreparationForShutdown(function() {
 			// don't complete the connection until the preparation is done.
@@ -209,7 +220,7 @@ if('development' == env) {
 	console.log(server_prefix + " - Using development configurations");
 	app.set('view engine', 'ejs');
 	app.set('view options', {
-		layout: true
+layout: true
 		// layout: '/../public/layout.ejs',
 		// layout_content_container_no_sidebar: '/../public/layout_content_container_no_sidebar.ejs'
 	});
@@ -231,9 +242,9 @@ if('development' == env) {
 	app.use(methodOverride());
 	app.use(cookieParser('s3cr3t')); // TODO get from config
 	i18n.expressBind(app, {
-		locales: ['nl', 'en'], // TODO get from config
-		defaultLocale: 'en',   // TODO get from config
-		cookieName: 'locale'
+locales: ['nl', 'en'], // TODO get from config
+defaultLocale: 'en',   // TODO get from config
+cookieName: 'locale'
 	});
 	app.use(function(req, res, next) {
 		req.i18n.setLocaleFromQuery();
@@ -244,11 +255,11 @@ if('development' == env) {
 	app.enableDeviceHelpers();
 	app.enableViewRouting();
 	app.use(sassMiddleware({
-		src: path.join(__dirname, '/../public'), // looks for extension .scss
-		dest: path.join(__dirname + '/../public'), // uses the same dir, but saves with extension .css
-		debug: true,
-		outputStyle: 'compressed',
-		prefix:  '/css'
+src: path.join(__dirname, '/../public'), // looks for extension .scss
+dest: path.join(__dirname + '/../public'), // uses the same dir, but saves with extension .css
+debug: true,
+outputStyle: 'compressed',
+prefix:  '/css'
 	}));
 	app.use('/app', express.static(path.join(__dirname, '/../public/app')));
 	app.use('/tests', express.static(path.join(__dirname, '/../tests')));
@@ -298,8 +309,8 @@ if('development' == env) {
 	});
 	passport.use(new LocalStrategy({
 		// Set the field names here
-		usernameField: 'username',
-		passwordField: 'password'
+usernameField: 'username',
+passwordField: 'password'
 	},
 	function(username, password, done) {
 		console.log(server_prefix + " - Authenticating username " + username + " and password " + password);
@@ -342,9 +353,9 @@ if('development' == env) {
 			});
 		}
 	}
-));
-// TODO:
-// passport.use(new FacebookStrategy({}));
+	));
+	// TODO:
+	// passport.use(new FacebookStrategy({}));
 };
 /*
 * APP PRODUCTION
@@ -365,7 +376,7 @@ if('production' == env){
 	console.log(server_prefix + " - Using production configurations");
 	app.set('view engine', 'ejs');
 	app.set('view options', {
-		layout: true
+layout: true
 		// layout: '/../public/layout.ejs',
 		// layout_content_container_no_sidebar: '/../public/layout_content_container_no_sidebar.ejs'
 	});
@@ -387,9 +398,9 @@ if('production' == env){
 	app.use(methodOverride());
 	app.use(cookieParser('s3cr3t')); // TODO get from config
 	i18n.expressBind(app, {
-		locales: ['nl', 'en'], // TODO get from config
-		defaultLocale: 'en',   // TODO get from config
-		cookieName: 'locale'
+locales: ['nl', 'en'], // TODO get from config
+defaultLocale: 'en',   // TODO get from config
+cookieName: 'locale'
 	});
 	app.use(function(req, res, next) {
 		req.i18n.setLocaleFromQuery();
@@ -400,11 +411,11 @@ if('production' == env){
 	app.enableDeviceHelpers();
 	app.enableViewRouting();
 	app.use(sass.middleware({
-		src: path.join(__dirname, '/../public/sass'),
-		dest: path.join(__dirname + '/../public/css'),
-		debug: true,
-		outputStyle: 'compressed',
-		prefix:  '/css'
+src: path.join(__dirname, '/../public/sass'),
+dest: path.join(__dirname + '/../public/css'),
+debug: true,
+outputStyle: 'compressed',
+prefix:  '/css'
 	}));
 	app.use('/app', express.static(path.join(__dirname, '/../public/app')));
 	app.use('/tests', express.static(path.join(__dirname, '/../tests')));
@@ -454,8 +465,8 @@ if('production' == env){
 	});
 	passport.use(new LocalStrategy({
 		// Set the field names here
-		usernameField: 'username',
-		passwordField: 'password'
+usernameField: 'username',
+passwordField: 'password'
 	},
 	function(username, password, done) {
 		console.log(server_prefix + " - Authenticating username " + username + " and password " + password);
@@ -498,9 +509,9 @@ if('production' == env){
 			});
 		}
 	}
-));
-// TODO:
-// passport.use(new FacebookStrategy({}));
+	));
+	// TODO:
+	// passport.use(new FacebookStrategy({}));
 };
 /**
 * ALL requests
@@ -632,23 +643,23 @@ function runScript(exists, file, param, response) {
 	var command = '';
 	var extension = file.split('.').pop();
 	switch(extension) {
-		case 'php':
-			command = 'php';
-			break;
-		case 'js':
-			command = 'node';
-			break;
-		default:
-			// nothing
+	case 'php':
+		command = 'php';
+		break;
+	case 'js':
+		command = 'node';
+		break;
+	default:
+		// nothing
 	}
 	runner.exec(command + " " + file + " " + param,
-		function(err, stdout, stderr) {
-			sendData(err, stdout, stderr, response);
-		}
+	function(err, stdout, stderr) {
+		sendData(err, stdout, stderr, response);
+	}
 	);
 }
 /*
- * ARGUMENTS - The Arguments
+* ARGUMENTS - The Arguments
 */
 function args(req, res) {
 	console.log(server_prefix + " - args called");
