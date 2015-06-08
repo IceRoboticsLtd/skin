@@ -238,7 +238,11 @@ layout: true
 	*/
 	app.use(partials());
 	app.use(morgan('dev'));
-	app.use(bodyParser()); // pull information from html in POST
+	// pull information from html in POST
+	app.use(bodyParser.urlencoded({
+		extended: true
+	})); // NEW IN CONNECT 3.0
+	app.use(bodyParser.json()); // NEW IN CONNECT 3.0
 	app.use(methodOverride());
 	app.use(cookieParser('s3cr3t')); // TODO get from config
 	i18n.expressBind(app, {
@@ -394,7 +398,11 @@ layout: true
 	*/
 	app.use(partials());
 	app.use(morgan('prod'));
-	app.use(bodyParser()); // pull information from html in POST
+	// pull information from html in POST
+	app.use(bodyParser.urlencoded({
+		extended: true
+	})); // NEW IN CONNECT 3.0
+	app.use(bodyParser.json()); // NEW IN CONNECT 3.0
 	app.use(methodOverride());
 	app.use(cookieParser('s3cr3t')); // TODO get from config
 	i18n.expressBind(app, {
