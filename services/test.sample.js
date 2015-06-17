@@ -3,7 +3,7 @@
  */
 var config = require('../configs/server.js');
 var configs = config.configs,
-    server_prefix = configs.server_prefix || 'CORE';
+    server_prefix = configs.server_prefix || 'SKIN';
 console.log(server_prefix + " - Test service required.");
 /*
  * Test Read and Write Service.
