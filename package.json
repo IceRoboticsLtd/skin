@@ -66,6 +66,7 @@
     "istanbul": ">=0.1.46"
   },
   "scripts": {
+	"preinstall": "sudo npm install -g strongloop",	
     "start": "node servers/server",
     "test": "mocha"
   },
